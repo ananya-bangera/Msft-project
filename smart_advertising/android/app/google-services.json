@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "515412252033",
+    "project_id": "smart-advertising-296c3",
+    "storage_bucket": "smart-advertising-296c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515412252033:android:7262dd026bcd0a2ccf0480",
+        "android_client_info": {
+          "package_name": "com.ananya.smart_advertising"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515412252033-2k44477ccbaget7qss6b43o6t5mmccg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZLRhutFcU4HDcLh90IgR6CqqiV9M1ZAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515412252033-2k44477ccbaget7qss6b43o6t5mmccg1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
