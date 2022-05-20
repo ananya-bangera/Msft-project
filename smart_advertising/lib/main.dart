@@ -38,7 +38,7 @@ class myApp extends StatelessWidget {
 
       initialRoute: '/',
       routes: {
-        '/':(context) => RegisterationScreen() //AuthenticationWrapper()// OnBoardingPage(),
+        '/':(context) => SignInPage()//RegisterationScreen() //AuthenticationWrapper()// OnBoardingPage(),
         // '/auth':(context) => AuthenticationWrapper(),
 
       },

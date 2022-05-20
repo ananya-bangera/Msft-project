@@ -20,6 +20,10 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
   //form key
   final _formKey = GlobalKey<FormState>();
 
+  //Dropdown for two level authentication
+  final items = ['Company','User'];
+  String? value;
+
   //Editing Controllers
   final firstNameEditingController = new TextEditingController();
   final surNameEditingController = new TextEditingController();
@@ -162,6 +166,31 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
         ),
       ));
 
+    //UserType
+    final userType = Container(
+      // margin: EdgeInsets.all(8),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color:Colors.grey),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+
+          value: value,
+          isExpanded: true,
+          iconSize: 36,
+          icon: Icon(Icons.arrow_drop_down, color: Colors.grey[500],),
+          items: items.map(buildMenuItem).toList(),
+          onChanged: (value)=> setState(() =>
+          {
+            this.value = value
+
+          }),
+        ),
+      ),
+    );
+
     //Signup Button
     final signUpButton = Material(
       elevation:5,
@@ -174,7 +203,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
           SignUp(emailEditingController.text,passwordEditingController.text);
         },
         child: Text(
-              "Login",
+              "Sign Up",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold
@@ -182,6 +211,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
         ),
       ),
     );
+
 
     return Scaffold(
       appBar: AppBar(
@@ -215,6 +245,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                     SizedBox(height: 20,),
                     confirmPasswordField,
                     SizedBox(height: 20,),
+                    userType,
+                    SizedBox(height: 20,),
                     signUpButton,
                     SizedBox(height: 20,),
                  ],
@@ -226,6 +258,15 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
       ),
     );
   }
+
+  DropdownMenuItem<String> buildMenuItem(String item) =>
+      DropdownMenuItem(value: item,
+      child: Text(
+        item,
+        style: TextStyle( fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+      );
+
   void SignUp(String email, String password) async{
     if(_formKey.currentState!.validate()){
         await _auth.createUserWithEmailAndPassword(email: email, password: password)
@@ -236,6 +277,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
         });
     }
   }
+
   postDetailsToFirestore() async{
 
     //Calling Firestore
@@ -250,10 +292,11 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
     userModel.surName = surNameEditingController.text;
+    userModel.userType= value;
 
     //Inserting data into Firebase Firestore
     await firebaseFirestore
-    .collection("user")
+    .collection(value!)
     .doc(user.uid)
     .set(userModel.toMap());
 

@@ -9,6 +9,7 @@ import 'package:smart_advertising/pages/onboarding.dart';
 import 'package:smart_advertising/pages/Classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_advertising/pages/auth.dart';
+import 'package:smart_advertising/pages/registeration.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -22,6 +23,69 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    double width = MediaQuery.of(context).size.width;
+    // Categories
+    List<obj> names = [
+      obj(name: 'Food',icon: Icon(Icons.account_circle_outlined)),
+      obj(name: 'Cosmetics',icon: Icon(Icons.h_mobiledata)),
+      obj(name: 'Food',icon: Icon(Icons.account_circle_outlined)),
+      obj(name: 'Food',icon: Icon(Icons.account_circle_outlined)),
+
+    ];
+    Widget advCard() =>  Center(
+        child: Card(
+          shadowColor: Colors.white,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24)
+          ),
+          child: InkWell(
+            onTap: (){
+              print("yes");
+            },
+            child: Container(
+              width: width*0.45,
+              color: Colors.grey,
+              // decoration: BoxDecoration(
+              //     gradient: LinearGradient(
+              //         colors: [
+              //           Colors.pink,
+              //           Colors.red
+              //         ],
+              //         begin: Alignment.topLeft,
+              //         end: Alignment.bottomRight
+              //     )
+              // ),
+              padding: const EdgeInsets.all(46.5),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      child:  Icon(Icons.food_bank_outlined),
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      "Food",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    // const SizedBox(height: 15),
+                    // Text(
+                    //   "second",
+                    //   style: TextStyle(fontSize: 24),
+                    // ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+
+        )
+    );
+
     return Scaffold(
 
         appBar: AppBar(
@@ -40,12 +104,35 @@ class _HomeState extends State<Home> {
         body: Stack(
           children: [
             Positioned(
+              left:0,
+              top:0,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        advCard(),
+                        advCard()
+                       ],
+                    ),
+                    Row(
+                      children: [
+                        advCard(),
+                        advCard()
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            Positioned(
               bottom: 0,
                 left: 0,
                 child: Container(
                   width: size.width,
                   height: 80,
-
                   child: Stack(
                     children: [
                       CustomPaint(
@@ -98,6 +185,8 @@ class _HomeState extends State<Home> {
         ),
 
     );
+
+
   }
 
   Future<void> logout(BuildContext context) async{

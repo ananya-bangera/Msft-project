@@ -17,3 +17,8 @@ class ThemeClass{
       )
   );
 }
+class obj{
+  String? name;
+  Icon? icon;
+  obj({required this.name,required this.icon});
+}
