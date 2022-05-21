@@ -8,9 +8,15 @@ import 'package:smart_advertising/pages/onboarding.dart';
 import 'package:smart_advertising/pages/Classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'pages/auth.dart';
+import 'package:flutter/services.dart';
+
 Future <void> main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await Firebase.initializeApp();
   runApp(myApp());
 }

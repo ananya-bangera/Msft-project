@@ -10,6 +10,7 @@ import 'package:smart_advertising/pages/Classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_advertising/pages/auth.dart';
 import 'package:smart_advertising/pages/registeration.dart';
+import 'package:smart_advertising/pages/video.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -42,6 +43,10 @@ class _HomeState extends State<Home> {
           child: InkWell(
             onTap: (){
               print("yes");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UploadVideo()),
+              );
             },
             child: Container(
               width: width*0.45,
