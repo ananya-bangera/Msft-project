@@ -36,7 +36,7 @@ class myApp extends StatelessWidget {
         )
       ],
     child:MaterialApp(
-      title: 'Flutter Theme Demo',
+      title: 'Adv',
       debugShowCheckedModeBanner: false,
       themeMode:ThemeMode.system,
       theme: ThemeClass.lightTheme,

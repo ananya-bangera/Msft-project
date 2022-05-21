@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
 
         appBar: AppBar(
-          title: Text("Demo"),
+          title: Text("Adv"),
           backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
           actions: [
             IconButton(
