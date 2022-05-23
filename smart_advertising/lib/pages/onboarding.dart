@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:smart_advertising/pages/home.dart';
+import 'package:smart_advertising/pages/registeration.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -43,7 +44,7 @@ class OnBoardingPage extends StatelessWidget {
 
   void gotoHome(context) =>
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => Home()),
+        MaterialPageRoute(builder: (_) => RegisterationScreen()),
       );
 
   DotsDecorator getDotsDecoration()=> DotsDecorator (

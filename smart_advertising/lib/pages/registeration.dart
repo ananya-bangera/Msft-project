@@ -215,7 +215,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Demo"),
+        title: Text("Adv"),
         backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
       ),
       body: Center(
@@ -302,6 +302,6 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
 
     Fluttertoast.showToast(msg: "Account created successfully :)");
 
-    Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context) => Home()), (route) => false);
+    Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context) => Home(value: value)), (route) => false);
   }
 }

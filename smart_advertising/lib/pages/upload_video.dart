@@ -3,16 +3,21 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:path/path.dart';
+import 'package:smart_advertising/pages/home.dart';
 
 import '../api/firebase_api.dart';
 
 class UploadVideo extends StatefulWidget {
+  final String? category_name;
+  const UploadVideo(this.category_name);
   @override
   _UploadVideoState createState() => _UploadVideoState();
 }
 
 class _UploadVideoState extends State<UploadVideo> {
+
   UploadTask? task;
   File? file;
 
@@ -33,7 +38,14 @@ class _UploadVideoState extends State<UploadVideo> {
                   mainAxisSize: MainAxisSize.min,
                   children: [Text('Select File'), Icon(Icons.attach_file)],
                 ),
-                onPressed: selectFile,
+                onPressed: (){
+                  if(fileName=='No File Selected') {
+                    selectFile();
+                  }
+                  else {
+                    uploadFile(widget.category_name);
+                  }
+                },
               ),
               SizedBox(height: 8),
               Text(
@@ -41,13 +53,7 @@ class _UploadVideoState extends State<UploadVideo> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 48),
-              ElevatedButton(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [Text('Upload File'), Icon(Icons.cloud_upload_outlined)],
-                ),
-                onPressed: uploadFile,
-              ),
+
               SizedBox(height: 20),
               task != null ? buildUploadStatus(task!) : Container(),
             ],
@@ -66,11 +72,12 @@ class _UploadVideoState extends State<UploadVideo> {
     setState(() => file = File(path));
   }
 
-  Future uploadFile() async {
+  Future uploadFile(String? category_name ) async {
     if (file == null) return;
 
     final fileName = basename(file!.path);
-    final destination = 'files/$fileName';
+    // final destination = 'files/${fileName}';
+    final destination = 'files/${category_name}/${fileName}';
 
     task = FirebaseApi.uploadFile(destination, file!);
     setState(() {});
@@ -81,6 +88,11 @@ class _UploadVideoState extends State<UploadVideo> {
     final urlDownload = await snapshot.ref.getDownloadURL();
 
     print('Download-Link: $urlDownload');
+    Navigator.push(
+      this.context,
+      MaterialPageRoute(builder: (context) => Home()),
+    );
+
   }
 
   Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
@@ -90,12 +102,24 @@ class _UploadVideoState extends State<UploadVideo> {
         final snap = snapshot.data!;
         final progress = snap.bytesTransferred / snap.totalBytes;
         final percentage = (progress * 100).toStringAsFixed(2);
-
-        return Text(
-          '$percentage %',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        return  Center(
+          child: SpinKitDoubleBounce(
+            size: 140,
+            duration: const Duration(seconds : 2),
+            itemBuilder: (context, index){
+              final colors = [Colors.white, Colors.pink, Colors.yellow];
+              final color = colors[index% colors.length];
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  color: color,
+                ),
+              );
+            },
+          ),
         );
-      } else {
+
+      }
+      else{
         return Container();
       }
     },

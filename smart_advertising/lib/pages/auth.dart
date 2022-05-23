@@ -8,7 +8,14 @@ import 'package:smart_advertising/pages/authenticationService.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_advertising/pages/home.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   //form key
   final _formKey = GlobalKey<FormState>();
 
@@ -18,6 +25,10 @@ class SignInPage extends StatelessWidget {
 
   //Firebase
   final _auth = FirebaseAuth.instance;
+
+  //Dropdown for two level authentication
+  final items = ['Company','User'];
+  String? value;
 
 
   @override
@@ -79,6 +90,31 @@ class SignInPage extends StatelessWidget {
           ),
         ));
 
+    //user Type dropdown
+    final userType = Container(
+      // margin: EdgeInsets.all(8),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color:Colors.grey),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+
+          value: value,
+          isExpanded: true,
+          iconSize: 36,
+          icon: Icon(Icons.arrow_drop_down, color: Colors.grey[500],),
+          items: items.map(buildMenuItem).toList(),
+          onChanged: (value)=> setState(() =>
+          {
+            this.value = value
+          }),
+        ),
+
+      ),
+    );
+
     //Login Button
     final logInButton = Material(
       elevation: 5,
@@ -132,6 +168,8 @@ class SignInPage extends StatelessWidget {
                       SizedBox(height: 45,),
                       logInButton,
                       SizedBox(height: 45,),
+                      userType,
+                      SizedBox(height: 45,),
                     ],
                   ),
                 ),
@@ -141,6 +179,15 @@ class SignInPage extends StatelessWidget {
       ),
     );
   }
+
+
+DropdownMenuItem<String> buildMenuItem(String item) =>
+    DropdownMenuItem(value: item,
+      child: Text(
+        item,
+        style: TextStyle( fontWeight: FontWeight.bold, fontSize: 20),
+      ),
+    );
 
 //Login Function
 void signIn(String email, String password, BuildContext context)async {
@@ -155,5 +202,9 @@ void signIn(String email, String password, BuildContext context)async {
     });
   }
 }
+
+
+
+
 
 }

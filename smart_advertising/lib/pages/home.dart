@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_advertising/model/user_model.dart';
 import 'package:smart_advertising/pages/authenticationService.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,13 @@ import 'package:smart_advertising/pages/Classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_advertising/pages/auth.dart';
 import 'package:smart_advertising/pages/registeration.dart';
-import 'package:smart_advertising/pages/video.dart';
+import 'package:smart_advertising/pages/upload_video.dart';
+
+import 'display_video.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final String? value;
+  const Home({Key? key, this.value}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -25,15 +29,19 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     // Categories
     List<obj> names = [
-      obj(name: 'Food',icon: Icon(Icons.account_circle_outlined)),
+      obj(name: 'Food1',icon: Icon(Icons.account_circle_outlined)),
       obj(name: 'Cosmetics',icon: Icon(Icons.h_mobiledata)),
-      obj(name: 'Food',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Food',icon: Icon(Icons.account_circle_outlined)),
-
+      obj(name: 'Food2',icon: Icon(Icons.account_circle_outlined)),
+      obj(name: 'Food3',icon: Icon(Icons.account_circle_outlined)),
+      obj(name: 'Food4',icon: Icon(Icons.account_circle_outlined)),
+      obj(name: 'Food5',icon: Icon(Icons.account_circle_outlined)),
+      obj(name: 'Food6',icon: Icon(Icons.account_circle_outlined)),
     ];
-    Widget advCard() =>  Center(
+    Widget advCard(String? category_name) =>  Center(
         child: Card(
           shadowColor: Colors.white,
           clipBehavior: Clip.antiAlias,
@@ -42,45 +50,47 @@ class _HomeState extends State<Home> {
           ),
           child: InkWell(
             onTap: (){
-              print("yes");
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => UploadVideo()),
-              );
+              print(widget.value);
+              if(widget.value=='Company') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UploadVideo(category_name)),
+                );
+              }
+              else{
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DisplayVideo(category_name)),
+                );
+              }
             },
             child: Container(
-              width: width*0.45,
+              width: width*0.9,
               color: Colors.grey,
-              // decoration: BoxDecoration(
-              //     gradient: LinearGradient(
-              //         colors: [
-              //           Colors.pink,
-              //           Colors.red
-              //         ],
-              //         begin: Alignment.topLeft,
-              //         end: Alignment.bottomRight
-              //     )
-              // ),
               padding: const EdgeInsets.all(46.5),
               child: Center(
-                child: Column(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      child:  Icon(Icons.food_bank_outlined),
+                    Center(
+                      child: CircleAvatar(
+                        child:  Icon(Icons.food_bank_outlined),
+                      ),
                     ),
-                    const SizedBox(height: 15),
-                    Text(
-                      "Food",
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+                    const SizedBox(width: 15),
+                    Column(
+                      children: [
+                        const SizedBox(height: 5,),
+                        Center(
+                          child: Text(
+                            "${category_name}",
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     ),
-                    // const SizedBox(height: 15),
-                    // Text(
-                    //   "second",
-                    //   style: TextStyle(fontSize: 24),
-                    // ),
                   ],
                 ),
               ),
@@ -92,92 +102,81 @@ class _HomeState extends State<Home> {
     );
 
     return Scaffold(
-
-        appBar: AppBar(
-          title: Text("Adv"),
-          backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
-          actions: [
-            IconButton(
-                onPressed: (){
-                  logout(context);
-                },
-                icon: Icon(Icons.logout),
-            )
-          ],
-        ),
-
-        body: Stack(
-          children: [
-            Positioned(
-              left:0,
-              top:0,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        advCard(),
-                        advCard()
-                       ],
-                    ),
-                    Row(
-                      children: [
-                        advCard(),
-                        advCard()
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            Positioned(
-              bottom: 0,
-                left: 0,
-                child: Container(
-                  width: size.width,
-                  height: 80,
-                  child: Stack(
-                    children: [
-                      CustomPaint(
-                        size:Size(size.width,80),
-                        painter: BNCustomPainter(),
-                      ),
-                      Center(
-                        heightFactor: 0.6,
-                        child: FloatingActionButton(onPressed: (){},
-                        backgroundColor: Colors.orange,
-                          child: Icon(Icons.analytics), elevation:0.1,),
-                      ),
-                      Container(
-                        width: size.width,
-                        height: 80,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children:[
-                            IconButton(
-                              icon: Icon(Icons.home,color: Colors.black,),
-                              onPressed: (){},
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.cloud_upload_outlined,color: Colors.black,),
-                              onPressed: (){},
-                            ),
-                            Container(width: size.width*0.20,),
-                            IconButton(
-                              icon: Icon(Icons.analytics,color: Colors.black,),
-                              onPressed: (){},
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.account_circle_outlined,color: Colors.black,),
-                              onPressed: (){
-                                context.read<AuthenticationService>().signOut();
-                              },
-                            ),
+          appBar: AppBar(
+            title: Text("Adv"),
+            backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
+            actions: [
+              IconButton(
+                  onPressed: (){
+                    logout(context);
+                  },
+                  icon: Icon(Icons.logout),
+              )
+            ],
+          ),
+          body: Stack(
+                children: [
+                 Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child:  Scrollbar(
+                          child: ListView.builder(
+                              itemCount: names.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                     return  advCard(names[index].name);
+                                  }
+                           ),
+                         ),
+                       ),
+                     Positioned(
+                        bottom: 0,
+                        left: 0,
+                        child: Container(
+                          width: size.width,
+                          height: 80,
+                          child: Stack(
+                            children: [
+                              CustomPaint(
+                                size:Size(size.width,80),
+                                painter: BNCustomPainter(),
+                              ),
+                              Center(
+                                heightFactor: 0.6,
+                                child: FloatingActionButton(onPressed: (){},
+                                  backgroundColor: Colors.orange,
+                                  child: Icon(Icons.analytics), elevation:0.1,),
+                              ),
+                              Container(
+                                width: size.width,
+                                height: 80,
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children:[
+                                      IconButton(
+                                        icon: Icon(Icons.home,color: Colors.black,),
+                                        onPressed: (){
+                                          // Navigator.of(context).push(MaterialPageRoute(
+                                          //   builder: (context) => DisplayVideo(),
+                                          // ));
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.cloud_upload_outlined,color: Colors.black,),
+                                        onPressed: (){},
+                                      ),
+                                      Container(width: size.width*0.20,),
+                                      IconButton(
+                                        icon: Icon(Icons.analytics,color: Colors.black,),
+                                        onPressed: (){},
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.account_circle_outlined,color: Colors.black,),
+                                        onPressed: (){
+                                          context.read<AuthenticationService>().signOut();
+                                        },
+                              ),
 
 
-                          ]
+                            ]
 
                         ),
                       )
@@ -186,8 +185,10 @@ class _HomeState extends State<Home> {
                 )
 
             )
-          ],
-        ),
+               ],
+            ),
+
+
 
     );
 
