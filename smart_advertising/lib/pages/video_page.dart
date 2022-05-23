@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:smart_advertising/model/firebase_file.dart';
 import 'package:video_player/video_player.dart';
+import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:camera/camera.dart';
+
+import '../main.dart';
 
 class VideoPage extends StatefulWidget {
   final FirebaseFile file;
   const VideoPage({Key? key,required this.file}) : super(key: key);
-  // VideoDemo() : super();
-
-  final String title = "Video Display";
 
   @override
   VideoPageState createState() => VideoPageState();
 }
 
 class VideoPageState extends State<VideoPage> {
-  //
+  //For Displaying Video
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
+
+  //For the analysis model
+  CameraImage? cameraImage;
+  CameraController? cameraController;
+  String output = '';
 
   @override
   void initState() {
@@ -25,7 +31,56 @@ class VideoPageState extends State<VideoPage> {
     _controller.setLooping(true);
     _controller.setVolume(1.0);
     super.initState();
+    loadCamera();
+    loadmodel();
   }
+
+
+  loadCamera() {
+    cameraController = CameraController(cameras![0], ResolutionPreset.high);
+    cameraController!.initialize().then((value) {
+      if (!mounted) {
+        return;
+      } else {
+        setState(() {
+          cameraController!.startImageStream((imageStream) {
+            cameraImage = imageStream;
+            runModel();
+          });
+        });
+      }
+    });
+  }
+
+  runModel() async {
+    if (cameraImage != null) {
+      var pre = await TfLiteDelegate().
+      var predictions = await TfLite.runModelOnFrame(
+          bytesList: cameraImage!.planes.map((plane) {
+            return plane.bytes;
+          }).toList(),
+          imageHeight: cameraImage!.height,
+          imageWidth: cameraImage!.width,
+          imageMean: 127.5,
+          imageStd: 127.5,
+          rotation: 90,
+          numResults: 2,
+          threshold: 0.1,
+          asynch: true);
+      predictions!.forEach((element) {
+        setState(() {
+          output = element['label'];
+          print(output);
+        });
+      });
+    }
+  }
+
+  loadmodel() async {
+    await Tflite.loadModel(
+        model: "assets/model.tflite", labels: "assets/labels.txt");
+  }
+
 
   @override
   void dispose() {

@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +10,11 @@ import 'package:smart_advertising/pages/Classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'pages/auth.dart';
 import 'package:flutter/services.dart';
-
+List<CameraDescription>? cameras;
 Future <void> main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
