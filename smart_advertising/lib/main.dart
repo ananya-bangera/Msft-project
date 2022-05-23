@@ -8,12 +8,14 @@ import 'package:smart_advertising/pages/registeration.dart';
 import 'package:smart_advertising/pages/onboarding.dart';
 import 'package:smart_advertising/pages/Classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'pages/auth.dart';
 import 'package:flutter/services.dart';
 List<CameraDescription>? cameras;
 Future <void> main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   cameras = await availableCameras();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -46,7 +48,7 @@ class myApp extends StatelessWidget {
 
       initialRoute: '/',
       routes: {
-        '/':(context) => RegisterationScreen() //SignInPage()//AuthenticationWrapper()// OnBoardingPage(),
+        '/':(context) => SignInPage()//RegisterationScreen() //AuthenticationWrapper()// OnBoardingPage(),
         // '/auth':(context) => AuthenticationWrapper(),
 
       },

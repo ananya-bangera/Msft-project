@@ -1,10 +1,13 @@
+import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_advertising/model/firebase_file.dart';
 import 'package:video_player/video_player.dart';
-import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:camera/camera.dart';
-
+// import 'package:tflite_flutter/tflite_flutter.dart';
+// import 'package:smart_advertising/pages/tflite.dart';
+import 'package:tflite/tflite.dart';
 import '../main.dart';
+
 
 class VideoPage extends StatefulWidget {
   final FirebaseFile file;
@@ -15,6 +18,7 @@ class VideoPage extends StatefulWidget {
 }
 
 class VideoPageState extends State<VideoPage> {
+
   //For Displaying Video
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
@@ -25,7 +29,8 @@ class VideoPageState extends State<VideoPage> {
   String output = '';
 
   @override
-  void initState() {
+  Future<void> initState() async {
+
     _controller = VideoPlayerController.network('${widget.file.url}');
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.setLooping(true);
@@ -54,8 +59,8 @@ class VideoPageState extends State<VideoPage> {
 
   runModel() async {
     if (cameraImage != null) {
-      var pre = await TfLiteDelegate().
-      var predictions = await TfLite.runModelOnFrame(
+
+      var predictions = await Tflite.runModelOnFrame(
           bytesList: cameraImage!.planes.map((plane) {
             return plane.bytes;
           }).toList(),
