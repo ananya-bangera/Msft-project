@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:smart_advertising/model/firebase_file.dart';
 import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
-// import 'package:tflite_flutter/tflite_flutter.dart';
-// import 'package:smart_advertising/pages/tflite.dart';
 import 'package:tflite/tflite.dart';
 import '../main.dart';
 
@@ -29,7 +27,7 @@ class VideoPageState extends State<VideoPage> {
   String output = '';
 
   @override
-  Future<void> initState() async {
+  void initState(){
 
     _controller = VideoPlayerController.network('${widget.file.url}');
     _initializeVideoPlayerFuture = _controller.initialize();
@@ -75,7 +73,7 @@ class VideoPageState extends State<VideoPage> {
       predictions!.forEach((element) {
         setState(() {
           output = element['label'];
-          print(output);
+          // print(output);
         });
       });
     }
@@ -99,22 +97,31 @@ class VideoPageState extends State<VideoPage> {
       appBar: AppBar(
         title: Text("Adv"),
       ),
-      body: FutureBuilder(
-        future: _initializeVideoPlayerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Center(
-              child: AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              ),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      body: Column(
+        children: [
+          FutureBuilder(
+            future: _initializeVideoPlayerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+
+                return Center(
+                  child: AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  ),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+          Text(
+            output,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
