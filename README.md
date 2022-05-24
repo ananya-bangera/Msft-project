@@ -1,4 +1,3 @@
-# Msft-project
 <h1 align="center">
   <a href="https://github.com/ananya-bangera/Msft-project">
     <img src="https://acehacker.com/microsoft/engage2022/img/face-id.png" alt="Smart Advertising" width="285" height="150">
