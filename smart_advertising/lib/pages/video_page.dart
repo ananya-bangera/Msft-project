@@ -1,6 +1,10 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_advertising/model/emotion.dart';
 import 'package:smart_advertising/model/firebase_file.dart';
+import 'package:smart_advertising/pages/display_video.dart';
 import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
 import 'package:tflite/tflite.dart';
@@ -20,6 +24,12 @@ class VideoPageState extends State<VideoPage> {
   //For Displaying Video
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
+
+  //For saving the emotions list
+  List<Emotion> emotionList =[];
+   DatabaseReference reference = FirebaseDatabase.instance.ref(
+     "Emotions/videos"
+   );
 
   //For the analysis model
   CameraImage? cameraImage;
@@ -84,7 +94,6 @@ class VideoPageState extends State<VideoPage> {
         model: "assets/model.tflite", labels: "assets/labels.txt");
   }
 
-
   @override
   void dispose() {
     _controller.dispose();
@@ -93,6 +102,7 @@ class VideoPageState extends State<VideoPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Adv"),
@@ -102,6 +112,9 @@ class VideoPageState extends State<VideoPage> {
           FutureBuilder(
             future: _initializeVideoPlayerFuture,
             builder: (context, snapshot) {
+              emotionList.add(Emotion(feelings: output, timestamp: _controller.value.position.inSeconds.toString()));
+              Fluttertoast.showToast(msg: emotionList.length.toString());
+
               if (snapshot.connectionState == ConnectionState.done) {
 
                 return Center(
@@ -118,16 +131,26 @@ class VideoPageState extends State<VideoPage> {
             },
           ),
           Text(
-            output,
+            output+ " "+ _controller.value.position.inSeconds.toString()+",",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
+          setState(() async {
             if (_controller.value.isPlaying) {
               _controller.pause();
+              // print(emotionList);
+
+              for(int i =0;i<emotionList.length;i++){
+              Fluttertoast.showToast(msg: emotionList.length.toString());
+                await reference.child(emotionList[i].timestamp).set(emotionList[i].feelings.toString()).asStream();
+
+              }
+
+              Navigator.of(context).pop();
+
             } else {
               _controller.play();
             }

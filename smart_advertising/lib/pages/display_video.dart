@@ -93,14 +93,14 @@ class _DisplayVideoState extends State<DisplayVideo> {
 
   Widget buildFile(BuildContext context, FirebaseFile file) {
     return ListTile(
-      leading: ClipOval(
-        child: Image.network(
-          file.url,
-          width: 52,
-          height: 52,
-          fit: BoxFit.cover,
-        ),
-      ),
+      // leading: ClipOval(
+      //   child: Image.network(
+      //     file.url,
+      //     width: 52,
+      //     height: 52,
+      //     fit: BoxFit.cover,
+      //   ),
+      // ),
       title: Text(
         file.name,
         style: TextStyle(
