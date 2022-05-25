@@ -8,9 +8,9 @@ import 'package:smart_advertising/pages/registeration.dart';
 import 'package:smart_advertising/pages/onboarding.dart';
 import 'package:smart_advertising/pages/Classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'pages/auth.dart';
 import 'package:flutter/services.dart';
+
 List<CameraDescription>? cameras;
 Future <void> main() async
 {
