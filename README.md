@@ -23,7 +23,6 @@
 - [📈Progress](#progress)
 - [🔮Future Scope](#future-scope)
 - [🚧Major Roadblocks](#major-roadblocks)
-- [🛠Project Setup](#project-setup)
 - [⚙Usage](#usage)
 - [👨‍💻Contributors](#contributors)
 - [👨‍🏫Acknowledgement](#acknowledgement)
@@ -94,14 +93,91 @@ Develop a browser-based application or a native mobile application to demonstrat
 <a href="https://developer.android.com/" title="Android"><img src="https://github.com/get-icon/geticon/blob/master/icons/android.svg" alt="Android" width="80px" height="40px"></a>
 
 ## 📈Progress
+- [x] 2 Access Levels Implemented using Firebase Auth - User & Company
+- [x] Videos Added by company stored in Firebase Storage
+- [x] Videos sorted by categories
+- [x] Figma Designs for the UI created
+- [x] UI implemented in Flutter  
+- [x] Emotion Detection Model trained on Teachable Machine, TfLite file generated
+- [x] Model Integrated with Flutter using the `tflite` package   
+- [x] Timestamp-based records of emotions stored in Firebase Database
+- [ ] Analytics Graphs for uploaded videos
 
 ## 🔮Future Scope
+- Add a gamified environment for the users
+- Introduce ranking system and leaderboards
+- Allow users to redeem and apply coupons based on their scores
+- Allow companies to run special campaigns
 
 ## 🚧Major Roadblocks
+1. Dart Version Conflict with Firebase Dependencies
+   ```
+   The current Dart SDK version is 2.13.1.
+   Because smart_advertising depends on cloud_firestore >=3.1.10 which requires SDK version >=2.16.0 <3.0.0, version solving failed.
+    pub get failed (1; Because smart_advertising depends on cloud_firestore >=3.1.10 which requires SDK version >=2.16.0 <3.0.0, version solving failed.)
+    Process finished with exit code 1
+   ```
+   Solved by using version suitable to my current SDK version
+2. BuildContext Error
+   ```
+   error: [dart] The argument type 'Context' can't be assigned to the parameter type 'BuildContext'. [argument_type_not_assignable]
+   ```
+   By passing the BuildContext context or Just context in the function helped me solved the problem 
+3. Missing Firebase Dependency
+   ```
+   lib/pages/registeration.dart:252:21: Warning: Operand of null-aware operation '!' has type 'User' which excludes null.
+     - 'User' is from 'package:firebase_auth/firebase_auth.dart' ('/C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-2.0.0/lib/firebase_auth.dart').
+    userModel.uid = user!.uid;
+    /C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_platform_interface-5.5.0/lib/src/method_channel/method_channel_firestore.dart:112:15: Error: Method not found: 'Error.throwWithStackTrace'.
+            Error.throwWithStackTrace(
+    ^^^^^^^^^^^^^^^^^^^
+    /C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_platform_interface-5.5.0/lib/src/method_channel/utils/exception.dart:14:11: Error: Method not found: 'Error.throwWithStackTrace'.
+        Error.throwWithStackTrace(exception, stackTrace);
+   ```
+   Solved by adding the dependency firebase_auth_platform_interface: ^5.0.0
+4. Null value Error - a frequent error
+   ```
+   Flutter Compile Error on Firebase Auth: "A non-null value must be returned since the return type 'Never' doesn't allow null."
+   ```
+   Solution:  
+   The error message was added from dart 2.16, i.e from flutter 2.10, so the primary solution will be to upgrade your flutter version, which will also upgrade dart version.
+   ```
+   android{
+           //change compile sdk version to 31
+           compileSdkVersion 31
+    }
+    ```
+ 5. MultiDex Error
+    ```
+    D8: Cannot fit requested classes in a single dex file 
+    ```
+    Add multiDex to your app-level build.gradle file. Under defaultConfig add this line
+    ```
+    multiDexEnabled true
+    ```
+    Then in dependencies add multidex and check versions
+    ```
+    implementation 'androidx.multidex:multidex: 2.0.1'
+    ```
+6. TFLite embedding not supported for Android V2
+   ```
+   The plugin `tflite` uses a deprecated version of the Android embedding.
+    To avoid unexpected runtime failures, or future build failures, try to see if this plugin supports the Android V2 embedding. Otherwise, consider removing it since a future release of Flutter will remove these deprecated APIs.
+    If you are plugin author, take a look at the docs for migrating the plugin to the V2 embedding: https://flutter.dev/go/android-plugin-migration.
+   ```
+   Solved by referencing a GitHub repo which updated the TFLite package
 
 ## 🛠Project Setup
+1. Clone the GitHub repo
+  ```
+  git clone https://github.com/ananya-bangera/Msft-project.git
+  ```
+2. Load the project in Android Studio
+3. Download all the packages listed in `pubspec.yaml` using `pub get` command
+4. Integrate with your Firebase Project by adding your Firebase keys
 
 ## ⚙Usage
+Based on your Android Development environment, proceed for a Gradle Build to debug and run the app in development mode.
 
 ## 👨‍💻Contributors
 - [Ananya Bangera](https://www.linkedin.com/in/ananya-bangera-1647a9207/) - [ananya.bangera100@gmail.com](mailto:ananya.bangera100@gmail.com)
