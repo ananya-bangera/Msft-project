@@ -32,8 +32,8 @@ class _DisplayVideoState extends State<DisplayVideo> {
           builder: (context, snapshot){
             switch( snapshot.connectionState){
               case
-                 ConnectionState.waiting:
-                      return Center(child: CircularProgressIndicator());
+              ConnectionState.waiting:
+                return Center(child: CircularProgressIndicator());
               default:
                 if(snapshot.hasError){
                   return Center(child: Text('Some error occurred'),);
@@ -68,23 +68,23 @@ class _DisplayVideoState extends State<DisplayVideo> {
     );
   }
 
- Widget buildHeader(int length) {
+  Widget buildHeader(int length) {
     return ListTile(
       tileColor: Colors.grey,
       leading: Container(
-        width: 52,
-        height: 52,
-        child: Icon(
-          Icons.file_copy_rounded,
-          color: Colors.white,
-        )
+          width: 52,
+          height: 52,
+          child: Icon(
+            Icons.file_copy_rounded,
+            color: Colors.white,
+          )
       ),
       title: Text(
         '$length Files',
         style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize:20,
-          color: Colors.white
+            fontWeight: FontWeight.bold,
+            fontSize:20,
+            color: Colors.white
         ),
       ),
     );
@@ -93,14 +93,6 @@ class _DisplayVideoState extends State<DisplayVideo> {
 
   Widget buildFile(BuildContext context, FirebaseFile file) {
     return ListTile(
-      // leading: ClipOval(
-      //   child: Image.network(
-      //     file.url,
-      //     width: 52,
-      //     height: 52,
-      //     fit: BoxFit.cover,
-      //   ),
-      // ),
       title: Text(
         file.name,
         style: TextStyle(
@@ -114,7 +106,7 @@ class _DisplayVideoState extends State<DisplayVideo> {
       ),
       onTap: (){
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => VideoPage(file: file),
+          builder: (context) => VideoPage(file: file,fileName: file.name.toString()),
         ));
       },
     );

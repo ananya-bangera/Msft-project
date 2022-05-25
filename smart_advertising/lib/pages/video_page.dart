@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_advertising/model/EmotionList.dart';
 import 'package:smart_advertising/model/emotion.dart';
 import 'package:smart_advertising/model/firebase_file.dart';
 import 'package:smart_advertising/pages/display_video.dart';
@@ -9,11 +12,12 @@ import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
 import 'package:tflite/tflite.dart';
 import '../main.dart';
-
+import 'package:path/path.dart';
 
 class VideoPage extends StatefulWidget {
   final FirebaseFile file;
-  const VideoPage({Key? key,required this.file}) : super(key: key);
+  final String fileName;
+  const VideoPage({Key? key,required this.file, required this.fileName}) : super(key: key);
 
   @override
   VideoPageState createState() => VideoPageState();
@@ -21,20 +25,25 @@ class VideoPage extends StatefulWidget {
 
 class VideoPageState extends State<VideoPage> {
 
+  //Firebase
+  final _auth = FirebaseAuth.instance;
+
   //For Displaying Video
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
 
   //For saving the emotions list
-  List<Emotion> emotionList =[];
-   DatabaseReference reference = FirebaseDatabase.instance.ref(
-     "Emotions/videos"
-   );
+  DatabaseReference  reference = FirebaseDatabase.instance.ref(
+      "Emotions/videos"
+  ).push();
+
+  Map<String,String> emotionList ={};
 
   //For the analysis model
   CameraImage? cameraImage;
   CameraController? cameraController;
   String output = '';
+
 
   @override
   void initState(){
@@ -46,6 +55,7 @@ class VideoPageState extends State<VideoPage> {
     super.initState();
     loadCamera();
     loadmodel();
+
   }
 
 
@@ -103,6 +113,9 @@ class VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
 
+    final ref= reference.child(widget.fileName.toString()).push();
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Adv"),
@@ -112,9 +125,9 @@ class VideoPageState extends State<VideoPage> {
           FutureBuilder(
             future: _initializeVideoPlayerFuture,
             builder: (context, snapshot) {
-              emotionList.add(Emotion(feelings: output, timestamp: _controller.value.position.inSeconds.toString()));
-              Fluttertoast.showToast(msg: emotionList.length.toString());
 
+              emotionList[_controller.value.position.inSeconds.toString()]=output;
+              Fluttertoast.showToast(msg: emotionList.length.toString());
               if (snapshot.connectionState == ConnectionState.done) {
 
                 return Center(
@@ -131,7 +144,7 @@ class VideoPageState extends State<VideoPage> {
             },
           ),
           Text(
-            output+ " "+ _controller.value.position.inSeconds.toString()+",",
+            widget.fileName + " " + output + " " + _controller.value.position.inSeconds.toString()+",",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           )
         ],
@@ -141,14 +154,7 @@ class VideoPageState extends State<VideoPage> {
           setState(() async {
             if (_controller.value.isPlaying) {
               _controller.pause();
-              // print(emotionList);
-
-              for(int i =0;i<emotionList.length;i++){
-              Fluttertoast.showToast(msg: emotionList.length.toString());
-                await reference.child(emotionList[i].timestamp).set(emotionList[i].feelings.toString()).asStream();
-
-              }
-
+              createEmotion(emotionList);
               Navigator.of(context).pop();
 
             } else {
@@ -160,6 +166,17 @@ class VideoPageState extends State<VideoPage> {
         Icon(_controller.value.isPlaying ? Icons.pause : Icons.play_arrow),
       ),
     );
+  }
+
+  createEmotion(Map<String,String> emotionList) async {
+    EmotionListModel emotionListModel = EmotionListModel();
+    emotionListModel.eml = emotionList;
+
+    User? user = _auth.currentUser;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    await firebaseFirestore.collection("Emotions").doc(widget.fileName.toString()).collection("collection").doc(user?.email).set(emotionListModel.toMap());
+    // Fluttertoast.showToast(msg: emotionListModel.eml.toString());
+
   }
 }
 
