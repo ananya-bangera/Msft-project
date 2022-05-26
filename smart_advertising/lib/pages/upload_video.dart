@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,9 @@ class UploadVideo extends StatefulWidget {
 
 class _UploadVideoState extends State<UploadVideo> {
 
+  //Firebase
+  CollectionReference filesList = FirebaseFirestore.instance.collection("Uploads");
+  final _auth = FirebaseAuth.instance;
   UploadTask? task;
   File? file;
 
@@ -86,7 +91,7 @@ class _UploadVideoState extends State<UploadVideo> {
 
     final snapshot = await task!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
-
+    insertUploads();
     print('Download-Link: $urlDownload');
     Navigator.push(
       this.context,
@@ -124,4 +129,15 @@ class _UploadVideoState extends State<UploadVideo> {
       }
     },
   );
+  insertUploads() async {
+
+    User? user = _auth.currentUser;
+    FirebaseFirestore firebaseFirestore= FirebaseFirestore.instance;
+    // DocumentSnapshot snapshot = await filesList.doc(_auth.currentUser?.email.toString()).collection("categories").doc(widget.category_name.toString()).get();
+    // var data = snapshot.data() as Map;
+    // var categories = data[widget.category_name.toString()] as List<dynamic>;
+    await firebaseFirestore.collection("Uploads").doc(user?.email).collection("categories").doc(widget.category_name.toString()).set({basename(file!.path):""},SetOptions(merge: true));
+    
+
+  }
 }

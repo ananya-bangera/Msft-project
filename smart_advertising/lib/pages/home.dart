@@ -13,6 +13,7 @@ import 'package:smart_advertising/pages/auth.dart';
 import 'package:smart_advertising/pages/registeration.dart';
 import 'package:smart_advertising/pages/upload_video.dart';
 
+import 'analysis.dart';
 import 'display_video.dart';
 
 class Home extends StatefulWidget {
@@ -51,7 +52,7 @@ class _HomeState extends State<Home> {
           child: InkWell(
             onTap: (){
               print(widget.value);
-              if(widget.value=='Company') {
+              if(widget.value =='Company') {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => UploadVideo(category_name)),
@@ -166,7 +167,14 @@ class _HomeState extends State<Home> {
                                       Container(width: size.width*0.20,),
                                       IconButton(
                                         icon: Icon(Icons.analytics,color: Colors.black,),
-                                        onPressed: (){},
+                                        onPressed: (){
+
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => DataAnalysis()),
+                                          );
+
+                                        },
                                       ),
                                       IconButton(
                                         icon: Icon(Icons.account_circle_outlined,color: Colors.black,),

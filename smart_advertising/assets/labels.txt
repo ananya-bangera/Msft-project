@@ -1,4 +1,4 @@
-0 Angry
-1 Sad
-2 Happy
-3 Neutral
+Angry
+Sad
+Happy
+Neutral
