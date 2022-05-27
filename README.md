@@ -3,12 +3,12 @@
     <img src="https://acehacker.com/microsoft/engage2022/img/face-id.png" alt="Smart Advertising" width="285" height="150">
   </a>
   <br>
-  Smart Advertising 📲
+  AdvertAIse 📲
 </h1>
 
 <div align="center">
-   A <strong>platform</strong> for companies to utilize smart advertising techniques to <strong>analyze and improve</strong> their advertisements based on <strong>user inputs</strong>  <br>
-  Microsoft Engage 2022 <br> <br>
+  A <strong>platform</strong> for companies to utilize <strong>smart advertising</strong> techniques to <strong>analyze and improve</strong> their advertisements based on <strong>user inputs</strong>  <br>
+  <a href="https://acehacker.com/microsoft/engage2022/">Microsoft Engage 2022</a> <br> <br>
   <img src="https://img.shields.io/github/stars/ananya-bangera/Msft-project?color=green&style=for-the-badge">
 </div>
 <hr>
@@ -36,7 +36,7 @@ Develop a browser-based application or a native mobile application to demonstrat
 <table>
   <tr>
     <td>
-      This mobile application will act as a platform for the companies to utilise smart advertising techniques to analyse and improve their advertisements based on user inputs. 
+      The <strong>AdvertAIse</strong> mobile application will act as a platform for the companies to utilise smart advertising techniques to analyse and improve their advertisements based on user inputs. 
       The generalised data will help them to get a clear idea of places where work is needed. 
       This will help them to make their advertisements more engaging thereby ensuring a better and effective reach of their advertisement. 
       The focus is on providing overall suggestions as in features liked by most of the users and places where improvement is required.
@@ -101,7 +101,7 @@ Develop a browser-based application or a native mobile application to demonstrat
 - [x] Emotion Detection Model trained on Teachable Machine, TfLite file generated
 - [x] Model Integrated with Flutter using the `tflite` package   
 - [x] Timestamp-based records of emotions stored in Firebase Database
-- [ ] Analytics Graphs for uploaded videos
+- [x] Analytics Graphs(Bar Charts and Pie Charts) for uploaded videos
 
 ## 🔮Future Scope
 - Add a gamified environment for the users
@@ -166,6 +166,12 @@ Develop a browser-based application or a native mobile application to demonstrat
     If you are plugin author, take a look at the docs for migrating the plugin to the V2 embedding: https://flutter.dev/go/android-plugin-migration.
    ```
    Solved by referencing a GitHub repo which updated the TFLite package
+7. Use of async/await from Builder
+   ```
+   type 'Future<dynamic>' is not a subtype of type 'List<String>'
+   ```
+   Solution:   
+   You cannot use async/await when returning from a build method (or a builder closure). Any time you have async when building the widget tree, it's best to use a FutureBuilder
 
 ## 🛠Project Setup
 1. Clone the GitHub repo
@@ -183,4 +189,5 @@ Based on your Android Development environment, proceed for a Gradle Build to deb
 - [Ananya Bangera](https://www.linkedin.com/in/ananya-bangera-1647a9207/) - [ananya.bangera100@gmail.com](mailto:ananya.bangera100@gmail.com)
 
 ## 👨‍🏫Acknowledgement
-- [Naveen Luhach](https://www.linkedin.com/in/naveenluhach/)
+- Mentor - [Naveen Luhach](https://www.linkedin.com/in/naveenluhach/)
+- [Microsoft Engage 2022](https://acehacker.com/microsoft/engage2022/)
