@@ -126,7 +126,7 @@ class _SignInPageState extends State<SignInPage> {
             .of(context)
             .size
             .width,
-        onPressed: () => signIn(emailController.text, passwordController.text, context),
+        onPressed: () => signIn(emailController.text, passwordController.text, context,value!),
         child: Text(
             "Login",
             textAlign: TextAlign.center,
@@ -166,10 +166,11 @@ class _SignInPageState extends State<SignInPage> {
                       SizedBox(height: 45,),
                       passwordField,
                       SizedBox(height: 45,),
-                      logInButton,
-                      SizedBox(height: 45,),
                       userType,
                       SizedBox(height: 45,),
+                      logInButton,
+                      SizedBox(height: 45,),
+
                     ],
                   ),
                 ),
@@ -190,12 +191,13 @@ DropdownMenuItem<String> buildMenuItem(String item) =>
     );
 
 //Login Function
-void signIn(String email, String password, BuildContext context)async {
+void signIn(String email, String password, BuildContext context, String userTypeInfo)async {
+
   if (_formKey.currentState!.validate()) {
     await _auth.signInWithEmailAndPassword(email: email, password: password)
         .then((uid) => {
     Fluttertoast.showToast(msg: "Login Successful"),
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()))
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(value: value)))
     }).catchError((e){
       Fluttertoast.showToast(msg: e!.message);
 

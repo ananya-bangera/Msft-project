@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:smart_advertising/pages/authenticationService.dart';
 import 'package:smart_advertising/pages/home.dart';
 import 'package:smart_advertising/pages/onboarding.dart';
-import 'package:smart_advertising/pages/Classes.dart';
+import 'package:smart_advertising/pages/classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_advertising/pages/auth.dart';
 import 'package:smart_advertising/pages/registeration.dart';
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
           child: InkWell(
             onTap: (){
               print(widget.value);
-              if(widget.value =='Company') {
+              if(widget.value =="Company") {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => UploadVideo(category_name)),

@@ -6,7 +6,7 @@ import 'package:smart_advertising/pages/authenticationService.dart';
 import 'package:smart_advertising/pages/home.dart';
 import 'package:smart_advertising/pages/registeration.dart';
 import 'package:smart_advertising/pages/onboarding.dart';
-import 'package:smart_advertising/pages/Classes.dart';
+import 'package:smart_advertising/pages/classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'pages/auth.dart';
 import 'package:flutter/services.dart';

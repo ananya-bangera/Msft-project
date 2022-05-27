@@ -3,11 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pie_chart/pie_chart.dart';
 import 'package:smart_advertising/pages/show_graphs.dart';
 
 
-import 'Classes.dart';
+import 'classes.dart';
+import 'list_of_videos.dart';
 
 class DataAnalysis extends StatefulWidget {
   const DataAnalysis({Key? key}) : super(key: key);
@@ -45,8 +45,9 @@ class _DataAnalysisState extends State<DataAnalysis> {
             onTap: ()  {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ShowGraphs(category_name: category_name))
+                MaterialPageRoute(builder: (context) => ListVideos(category_name: category_name))
               );
+
 
             },
             child: Container(
@@ -69,10 +70,14 @@ class _DataAnalysisState extends State<DataAnalysis> {
                         Center(
                           child: Text(
                             "${category_name}",
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                            ),
 
                           ),
-                        )
-                      ],
+
+                      ]
                     ),
                   ],
                 ),

@@ -93,10 +93,7 @@ class _UploadVideoState extends State<UploadVideo> {
     final urlDownload = await snapshot.ref.getDownloadURL();
     insertUploads();
     print('Download-Link: $urlDownload');
-    Navigator.push(
-      this.context,
-      MaterialPageRoute(builder: (context) => Home()),
-    );
+    Navigator.of(this.context).pop();
 
   }
 

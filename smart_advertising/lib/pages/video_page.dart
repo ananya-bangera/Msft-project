@@ -4,7 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:smart_advertising/model/EmotionList.dart';
+import 'package:smart_advertising/model/emotion_list.dart';
 import 'package:smart_advertising/model/emotion.dart';
 import 'package:smart_advertising/model/firebase_file.dart';
 import 'package:smart_advertising/pages/display_video.dart';
