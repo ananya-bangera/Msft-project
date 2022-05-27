@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_advertising/model/user_model.dart';
 import 'package:smart_advertising/pages/authenticationService.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 import 'package:smart_advertising/pages/authenticationService.dart';
 import 'package:smart_advertising/pages/home.dart';
@@ -10,6 +10,7 @@ import 'package:smart_advertising/pages/onboarding.dart';
 import 'package:smart_advertising/pages/classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_advertising/pages/auth.dart';
+import 'package:smart_advertising/pages/profile.dart';
 import 'package:smart_advertising/pages/registeration.dart';
 import 'package:smart_advertising/pages/upload_video.dart';
 
@@ -29,82 +30,112 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    // double width = MediaQuery.of(context).size.width;
+    // double height = MediaQuery.of(context).size.height;
 
     // Categories
     List<obj> names = [
-      obj(name: 'Food1',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Cosmetics',icon: Icon(Icons.h_mobiledata)),
-      obj(name: 'Food2',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Food3',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Food4',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Food5',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Food6',icon: Icon(Icons.account_circle_outlined)),
+      obj(name: 'Eatables',img: NetworkImage('https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170')),
+      obj(name: 'Cosmetics',img: NetworkImage('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1187&q=80')),
+      obj(name: 'Footwear',img: NetworkImage('https://images.unsplash.com/photo-1549971352-c31ced98e984?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170')),
+      obj(name: 'Watches',img: NetworkImage('https://images.unsplash.com/photo-1535449425-adc6f5faa71c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')),
+      obj(name: 'Phones',img: NetworkImage('https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')),
+      obj(name: 'Books and Toys',img: NetworkImage('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1122&q=80')),
+      obj(name: 'Books and Toys',img: NetworkImage('https://images.unsplash.com/photo-1564429238817-393bd4286b2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')),
+      obj(name: 'Appliances',img: NetworkImage('https://images.unsplash.com/photo-1583241475880-083f84372725?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80')),
     ];
-    Widget advCard(String? category_name) =>  Center(
-        child: Card(
-          shadowColor: Colors.white,
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24)
-          ),
-          child: InkWell(
-            onTap: (){
-              print(widget.value);
-              if(widget.value =="Company") {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UploadVideo(category_name)),
-                );
-              }
-              else{
+    Widget advCard(String? category_name,NetworkImage img) => Center(
+      child:  Card(
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Ink.image(
+            image: img,
+            child: InkWell(
+              onTap: (){
+                print(widget.value);
+                if(widget.value =="Company") {
                   Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DisplayVideo(category_name)),
-                );
-              }
-            },
-            child: Container(
-              width: width*0.9,
-              color: Colors.grey,
-              padding: const EdgeInsets.all(46.5),
-              child: Center(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: CircleAvatar(
-                        child:  Icon(Icons.food_bank_outlined),
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                    Column(
-                      children: [
-                        const SizedBox(height: 5,),
-                        Center(
-                          child: Text(
-                            "${category_name}",
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                    context,
+                    MaterialPageRoute(builder: (context) => UploadVideo(category_name)),
+                  );
+                }
+                else{
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DisplayVideo(category_name)),
+                  );
+                }
+              },
+            ),
+            height: 150,
+            fit: BoxFit.cover,
+          ),
+          Text(
+            '${category_name}',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontSize: 24,
             ),
           ),
-
-
-        )
+        ],
+      ),
+    ),
     );
+
+    // Widget advCard(String? category_name,Image? img) =>  Center(
+    //     child: Card(
+    //       shadowColor: Colors.white,
+    //       clipBehavior: Clip.antiAlias,
+    //       shape: RoundedRectangleBorder(
+    //           borderRadius: BorderRadius.circular(24)
+    //       ),
+    //       child: InkWell(
+    //
+    //         child: Container(
+    //           width: width*0.9,
+    //           color: Colors.grey,
+    //           padding: const EdgeInsets.all(46.5),
+    //           child: Center(
+    //             child: Row(
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               children: [
+    //                 Center(
+    //                   child: img,
+    //                 ),
+    //                 const SizedBox(width: 15),
+    //                 Column(
+    //                   children: [
+    //
+    //                     const SizedBox(height: 5,),
+    //                     Center(
+    //                       child: Text(
+    //                         "${category_name}",
+    //                         style: TextStyle(
+    //                             fontSize: 24,
+    //                             fontWeight: FontWeight.bold),
+    //                       ),
+    //                     ),
+    //                   ],
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //
+    //
+    //     )
+    // );
 
     return Scaffold(
           appBar: AppBar(
-            title: Text("Adv"),
+            title: Text("AdvertAIse"),
             backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
             actions: [
               IconButton(
@@ -121,13 +152,31 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.all(12.0),
                       child:  Scrollbar(
                           child: ListView.builder(
-                              itemCount: names.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                     return  advCard(names[index].name);
+                                  itemCount: names.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    if(index==names.length-1){
+                                      return  Column(
+                                        children: [
+                                          SizedBox(height: 20,),
+                                          advCard(names[index].name,names[index].img),
+                                          SizedBox(height: 80,),
+                                        ],
+                                      );
+                                    }
+                                    else{
+                                      return  Column(
+                                        children: [
+                                          SizedBox(height: 20,),
+                                          advCard(names[index].name,names[index].img),
+
+                                        ],
+                                      );
+                                    }
+
                                   }
+                               ),
                            ),
-                         ),
-                       ),
+                     ),
                      Positioned(
                         bottom: 0,
                         left: 0,
@@ -142,9 +191,15 @@ class _HomeState extends State<Home> {
                               ),
                               Center(
                                 heightFactor: 0.6,
-                                child: FloatingActionButton(onPressed: (){},
+                                child: FloatingActionButton(onPressed: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => DataAnalysis()),
+                                  );
+                                },
                                   backgroundColor: Colors.orange,
                                   child: Icon(Icons.analytics), elevation:0.1,),
+
                               ),
                               Container(
                                 width: size.width,
@@ -155,9 +210,7 @@ class _HomeState extends State<Home> {
                                       IconButton(
                                         icon: Icon(Icons.home,color: Colors.black,),
                                         onPressed: (){
-                                          // Navigator.of(context).push(MaterialPageRoute(
-                                          //   builder: (context) => DisplayVideo(),
-                                          // ));
+
                                         },
                                       ),
                                       IconButton(
@@ -166,20 +219,19 @@ class _HomeState extends State<Home> {
                                       ),
                                       Container(width: size.width*0.20,),
                                       IconButton(
-                                        icon: Icon(Icons.analytics,color: Colors.black,),
+                                        icon: Icon(Icons.home,color: Colors.black,),
                                         onPressed: (){
-
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => DataAnalysis()),
-                                          );
 
                                         },
                                       ),
                                       IconButton(
                                         icon: Icon(Icons.account_circle_outlined,color: Colors.black,),
                                         onPressed: (){
-                                          context.read<AuthenticationService>().signOut();
+
+                                          Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => Profile(userType: widget.value),
+                                          ));
+
                                         },
                               ),
 

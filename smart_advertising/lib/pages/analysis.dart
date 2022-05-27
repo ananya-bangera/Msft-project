@@ -25,123 +25,147 @@ class _DataAnalysisState extends State<DataAnalysis> {
 
     double width = MediaQuery.of(context).size.width;
     List<obj> names = [
-      obj(name: 'Food1',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Cosmetics',icon: Icon(Icons.h_mobiledata)),
-      obj(name: 'Food2',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Food3',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Food4',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Food5',icon: Icon(Icons.account_circle_outlined)),
-      obj(name: 'Food6',icon: Icon(Icons.account_circle_outlined)),
+      obj(name: 'Eatables',img: NetworkImage('https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170')),
+      obj(name: 'Cosmetics',img: NetworkImage('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1187&q=80')),
+      obj(name: 'Footwear',img: NetworkImage('https://images.unsplash.com/photo-1549971352-c31ced98e984?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170')),
+      obj(name: 'Watches',img: NetworkImage('https://images.unsplash.com/photo-1535449425-adc6f5faa71c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')),
+      obj(name: 'Phones',img: NetworkImage('https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')),
+      obj(name: 'Books and Toys',img: NetworkImage('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1122&q=80')),
+      obj(name: 'Books and Toys',img: NetworkImage('https://images.unsplash.com/photo-1564429238817-393bd4286b2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')),
+      obj(name: 'Appliances',img: NetworkImage('https://images.unsplash.com/photo-1583241475880-083f84372725?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80')),
     ];
+    Widget advCard(String? category_name,NetworkImage img) => Center(
 
-    Widget advCard(String? category_name) =>  Center(
-        child: Card(
-          shadowColor: Colors.white,
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24)
-          ),
-          child: InkWell(
-            onTap: ()  {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ListVideos(category_name: category_name))
-              );
-
-
-            },
-            child: Container(
-              width: width*0.9,
-              color: Colors.grey,
-              padding: const EdgeInsets.all(46.5),
-              child: Center(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: CircleAvatar(
-                        child:  Icon(Icons.food_bank_outlined),
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                    Column(
-                      children: [
-                        const SizedBox(width: 15),
-                        Center(
-                          child: Text(
-                            "${category_name}",
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                            ),
-
-                          ),
-
-                      ]
-                    ),
-                  ],
-                ),
+      child:  Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Ink.image(
+              image: img,
+              child: InkWell(
+                onTap: ()  {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ListVideos(category_name: category_name))
+                  );
+                },
+              ),
+              height: 150,
+              fit: BoxFit.cover,
+            ),
+            Text(
+              '${category_name}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 24,
               ),
             ),
-          ),
-        )
+          ],
+        ),
+      ),
     );
+    // Widget advCard(String? category_name) =>  Center(
+    //     child: Card(
+    //       shadowColor: Colors.white,
+    //       clipBehavior: Clip.antiAlias,
+    //       shape: RoundedRectangleBorder(
+    //           borderRadius: BorderRadius.circular(24)
+    //       ),
+    //       child: InkWell(
+    //
+    //         child: Container(
+    //           width: width*0.9,
+    //           color: Colors.grey,
+    //           padding: const EdgeInsets.all(46.5),
+    //           child: Center(
+    //             child: Row(
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               children: [
+    //                 Center(
+    //                   child: CircleAvatar(
+    //                     child:  Icon(Icons.food_bank_outlined),
+    //                   ),
+    //                 ),
+    //                 const SizedBox(width: 15),
+    //                 Column(
+    //                   children: [
+    //                     const SizedBox(width: 15),
+    //                     Center(
+    //                       child: Text(
+    //                         "${category_name}",
+    //                         style: TextStyle(
+    //                             fontSize: 24,
+    //                             fontWeight: FontWeight.bold),
+    //                         ),
+    //
+    //                       ),
+    //
+    //                   ]
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     )
+    // );
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Adv"),
+          title: Text("Analysis"),
           backgroundColor:Theme.of(context).appBarTheme.backgroundColor,),
-      body:
-          Scrollbar(
-            child: ListView.builder(
-                itemCount: names.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return  advCard(names[index].name);
-                }
-            ),
-          )
+      body:Scrollbar(
+            child: Row(
+              children: [
+                SizedBox(width: 15,),
+                SizedBox(
+                  width: 180,
+                  child: ListView.builder(
+                      itemCount: names.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        if(index%2==0) {
+                          return Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              advCard(names[index].name, names[index++].img),
+                            ],
+                          );
+                        }
+                        return Container();
+                      }
+          ),
+                ),
+                SizedBox(
+                  width: 180,
+                  child: ListView.builder(
+                      itemCount: names.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        if(index%2==1) {
+                          return Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              advCard(names[index].name, names[index++].img),
+                            ],
+                          );
+                        }
+                        return Container();
+                      }
+          ),
+                ),
 
-
+              ],
+            )
+       )
     );
   }
-
-  // fetchData(){
-  //    return FutureBuilder<DocumentSnapshot>(
-  //     //Fetching data from the documentId specified of the student
-  //     future: filesList.doc(_auth.currentUser?.email).get(),
-  //     builder:
-  //         (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
-  //
-  //
-  //       //Error Handling conditions
-  //       if (snapshot.hasError) {
-  //          return Text("Something went wrong");
-  //       }
-  //
-  //       if (snapshot.hasData && !snapshot.data!.exists) {
-  //          return Text("Document does not exist");
-  //       }
-  //
-  //       //Data is output to the user
-  //       if (snapshot.connectionState == ConnectionState.done) {
-  //         Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-  //          return drawPieChart(data);
-  //       }
-  //
-  //        return Text("loading");
-  //     },
-  //   );
-  //
-  // }
-  // drawPieChart(Map<String,dynamic> data){
-  //   List<String> namesOfFiles =[];
-  //   for(int i=0;i<data.length;i++){
-  //     namesOfFiles.add(data[i]);
-  //   }
-  //   print(namesOfFiles);
-  //   return Text(namesOfFiles.toString());
-  //
-  // }
-
 
 }

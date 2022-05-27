@@ -3,20 +3,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:smart_advertising/pages/pie_chart.dart';
-import 'indicator.dart';
+
 import 'package:fl_chart/src/chart/pie_chart/pie_chart.dart';
 
 
-class ShowGraphsCopy extends StatefulWidget {
+class ShowGraphs extends StatefulWidget {
   final String? category_name;
   final String? videoName;
-  const ShowGraphsCopy( {Key? key, required this.category_name, required this.videoName}) : super(key: key);
+  const ShowGraphs( {Key? key, required this.category_name, required this.videoName}) : super(key: key);
 
   @override
-  State<ShowGraphsCopy> createState() => _ShowGraphsCopyState();
+  State<ShowGraphs> createState() => _ShowGraphsState();
 }
 
-class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
+class _ShowGraphsState extends State<ShowGraphs> {
+
+  late int showingTooltip;
   CollectionReference filesList = FirebaseFirestore.instance.collection(
       "Uploads");
   final _auth = FirebaseAuth.instance;
@@ -38,117 +40,9 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
 
     @override
     void initState() {
+      showingTooltip = -1;
       super.initState();
     }
-
-    // Widget bottomTitles(double value, TitleMeta meta) {
-    //   const style = TextStyle(color: Colors.white, fontSize: 10);
-    //   String text;
-    //   switch (value.toInt()) {
-    //     case 0:
-    //       text = 'Mon';
-    //       break;
-    //     case 1:
-    //       text = 'Tue';
-    //       break;
-    //     case 2:
-    //       text = 'Wed';
-    //       break;
-    //     case 3:
-    //       text = 'Thu';
-    //       break;
-    //     case 4:
-    //       text = 'Fri';
-    //       break;
-    //     case 5:
-    //       text = 'Sat';
-    //       break;
-    //     case 6:
-    //       text = 'Sun';
-    //       break;
-    //     default:
-    //       text = '';
-    //       break;
-    //   }
-    //   return SideTitleWidget(
-    //     child: Text(text, style: style),
-    //     axisSide: meta.axisSide,
-    //   );
-    // }
-    //
-    // Widget topTitles(double value, TitleMeta meta) {
-    //   const style = TextStyle(color: Colors.white, fontSize: 10);
-    //   String text;
-    //   switch (value.toInt()) {
-    //     case 0:
-    //       text = 'Mon';
-    //       break;
-    //     case 1:
-    //       text = 'Tue';
-    //       break;
-    //     case 2:
-    //       text = 'Wed';
-    //       break;
-    //     case 3:
-    //       text = 'Thu';
-    //       break;
-    //     case 4:
-    //       text = 'Fri';
-    //       break;
-    //     case 5:
-    //       text = 'Sat';
-    //       break;
-    //     case 6:
-    //       text = 'Sun';
-    //       break;
-    //     default:
-    //       return Container();
-    //   }
-    //   return SideTitleWidget(
-    //     child: Text(text, style: style),
-    //     axisSide: meta.axisSide,
-    //   );
-    // }
-    //
-    // Widget leftTitles(double value, TitleMeta meta) {
-    //   const style = TextStyle(color: Colors.white, fontSize: 10);
-    //   String text;
-    //   if (value == 0) {
-    //     text = '0';
-    //   } else {
-    //     text = '${value.toInt()}0k';
-    //   }
-    //   return SideTitleWidget(
-    //     angle: AppUtils().degreeToRadian(value < 0 ? -45 : 45),
-    //     axisSide: meta.axisSide,
-    //     space: 4.0,
-    //     child: Text(
-    //       text,
-    //       style: style,
-    //       textAlign: TextAlign.center,
-    //     ),
-    //   );
-    // }
-    //
-    // Widget rightTitles(double value, TitleMeta meta) {
-    //   const style = TextStyle(color: Colors.white, fontSize: 10);
-    //   String text;
-    //   if (value == 0) {
-    //     text = '0';
-    //   } else {
-    //     text = '${value.toInt()}0k';
-    //   }
-    //   return SideTitleWidget(
-    //     angle: AppUtils().degreeToRadian(90),
-    //     axisSide: meta.axisSide,
-    //     space: 0,
-    //     child: Text(
-    //       text,
-    //       style: style,
-    //       textAlign: TextAlign.center,
-    //     ),
-    //   );
-    // }
 
     BarChartGroupData generateGroup(
         int x,
@@ -181,7 +75,7 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
               BarChartRodStackItem(
                 0,
                 value1,
-                const Color(0xff2bdb90),
+                const Color(0xfffc0707),
                 BorderSide(
                   color: Colors.white,
                   width: isTouched ? 2 : 0,
@@ -199,7 +93,7 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
               BarChartRodStackItem(
                 value1 + value2,
                 value1 + value2 + value3,
-                const Color(0xffff4d94),
+                const Color(0xff2bdb90),
                 BorderSide(
                   color: Colors.white,
                   width: isTouched ? 2 : 0,
@@ -233,7 +127,7 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
               BarChartRodStackItem(
                   0,
                   -value1,
-                  const Color(0xff2bdb90)
+                  const Color(0xfffc0707)
                       .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
                   const BorderSide(color: Colors.transparent)),
               BarChartRodStackItem(
@@ -245,7 +139,7 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
               BarChartRodStackItem(
                   -(value1 + value2),
                   -(value1 + value2 + value3),
-                  const Color(0xffff4d94)
+                  const Color(0xff2bdb90)
                       .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
                   const BorderSide(color: Colors.transparent)),
               BarChartRodStackItem(
@@ -262,6 +156,97 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
 
     bool isShadowBar(int rodIndex) => rodIndex == 1;
 
+    // Widget bottomTitles(double value, TitleMeta meta) {
+    //   const style = TextStyle(color: Colors.white, fontSize: 10);
+    //   String text;
+    //   switch (value.toInt()) {
+    //     case 0:
+    //       text = 'Mon';
+    //       break;
+    //     case 1:
+    //       text = 'Tue';
+    //       break;
+    //     case 2:
+    //       text = 'Wed';
+    //       break;
+    //     case 3:
+    //       text = 'Thu';
+    //       break;
+    //     case 4:
+    //       text = 'Fri';
+    //       break;
+    //     case 5:
+    //       text = 'Sat';
+    //       break;
+    //     case 6:
+    //       text = 'Sun';
+    //       break;
+    //     default:
+    //       text = '';
+    //       break;
+    //   }
+    //   return Center(child: Text(text, style: style));
+    // }
+    //
+    // Widget topTitles(double value, TitleMeta meta) {
+    //   const style = TextStyle(color: Colors.white, fontSize: 10);
+    //   String text;
+    //   switch (value.toInt()) {
+    //     case 0:
+    //       text = 'Mon';
+    //       break;
+    //     case 1:
+    //       text = 'Tue';
+    //       break;
+    //     case 2:
+    //       text = 'Wed';
+    //       break;
+    //     case 3:
+    //       text = 'Thu';
+    //       break;
+    //     case 4:
+    //       text = 'Fri';
+    //       break;
+    //     case 5:
+    //       text = 'Sat';
+    //       break;
+    //     case 6:
+    //       text = 'Sun';
+    //       break;
+    //     default:
+    //       return Container();
+    //   }
+    //   return Text(text, style: style);
+    // }
+    //
+    // Widget leftTitles(double value, TitleMeta meta) {
+    //   const style = TextStyle(color: Colors.white, fontSize: 10);
+    //   String text;
+    //   if (value == 0) {
+    //     text = '0';
+    //   } else {
+    //     text = '${value.toInt()}0k';
+    //   }
+    //   return  Padding(
+    //     child: Text(meta.formattedValue, style: style),
+    //     padding: const EdgeInsets.only(left: 8),
+    //   );
+    // }
+    //
+    // Widget rightTitles(double value, TitleMeta meta) {
+    //   const style = TextStyle(color: Colors.white, fontSize: 10);
+    //   String text;
+    //   if (value == 0) {
+    //     text = '0';
+    //   } else {
+    //     text = '${value.toInt()}0k';
+    //   }
+    //   return Padding(
+    //     child: Text(meta.formattedValue, style: style),
+    //     padding: const EdgeInsets.only(left: 8),
+    //   );
+    // }
+
 
 
 
@@ -274,299 +259,195 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
             .backgroundColor,),
       body: Column(
         children: [
-          // FutureBuilder<dynamic>(
-          // future: drawPieChart(),
-          // builder: (context, snapshot) {
-          // if (snapshot.hasData) {
-          //       return PieChart(
-          //               dataMap: snapshot.data,
-          //               animationDuration: Duration(milliseconds: 800),
-          //               chartLegendSpacing: 32,
-          //               chartRadius: MediaQuery
-          //                   .of(context)
-          //                   .size
-          //                   .width / 3.2,
-          //               // colorList: [Colors.red,Colors.yellow,Colors.blue, Colors.green],
-          //               initialAngleInDegree: 0,
-          //               chartType: ChartType.ring,
-          //               ringStrokeWidth: 32,
-          //               centerText: "HYBRID",
-          //               gradientList: gradientList,
-          //               emptyColorGradient: [
-          //                 Color(0xff6c5ce7),
-          //                 Colors.blue,
-          //               ],
-          //               legendOptions: LegendOptions(
-          //                 showLegendsInRow: false,
-          //                 legendPosition: LegendPosition.right,
-          //                 showLegends: true,
-          //                 // legendShape: _BoxShape.circle,
-          //                 legendTextStyle: TextStyle(
-          //                   fontWeight: FontWeight.bold,
-          //                 ),
-          //               ),
-          //               chartValuesOptions: ChartValuesOptions(
-          //                 showChartValueBackground: true,
-          //                 showChartValues: true,
-          //                 showChartValuesInPercentage: false,
-          //                 showChartValuesOutside: false,
-          //                 decimalPlaces: 1,
-          //               ),
-          //               // gradientList: ---To add gradient colors---
-          //               // emptyColorGradient: ---Empty Color gradient---
-          //             );
-          //       }
-          //     return CircularProgressIndicator();
-          //     }
-          // ),
 
-          // Expanded(
-          //     child:FutureBuilder(
-          //     future: drawPieChart(),
-          //     builder: (context, snapshot) {
-          //       if (snapshot.hasData) {
-          //         return AspectRatio(
-          //           aspectRatio: 1.3,
-          //           child: Card(
-          //             color: Colors.white,
-          //             child: Row(
-          //               children: <Widget>[
-          //                 const SizedBox(
-          //                   height: 18,
-          //                 ),
-          //                 Expanded(
-          //                   child: AspectRatio(
-          //                     aspectRatio: 1,
-          //                     child: PieChart(
-          //                       PieChartData(
-          //
-          //                           pieTouchData: PieTouchData(touchCallback:
-          //                               (FlTouchEvent event, pieTouchResponse) {
-          //                             setState(() {
-          //                               if (!event.isInterestedForInteractions ||
-          //                                   pieTouchResponse == null ||
-          //                                   pieTouchResponse.touchedSection == null) {
-          //                                 touchedIndex = -1;
-          //                                 return;
-          //                               }
-          //                               touchedIndex = pieTouchResponse
-          //                                   .touchedSection!.touchedSectionIndex;
-          //                             });
-          //                           }),
-          //                           borderData: FlBorderData(
-          //                             show: false,
-          //                           ),
-          //                           sectionsSpace: 0,
-          //                           centerSpaceRadius: 40,
-          //                           sections:  widget.mp,
-          //
-          //                       ),
-          //                     ),
-          //                   ),
-          //                 ),
-          //                 Column(
-          //                   mainAxisSize: MainAxisSize.max,
-          //                   mainAxisAlignment: MainAxisAlignment.end,
-          //                   crossAxisAlignment: CrossAxisAlignment.start,
-          //                   children: const <Widget>[
-          //                     Indicator(
-          //                       color: Color(0xff0293ee),
-          //                       text: 'First',
-          //                       isSquare: true,
-          //                     ),
-          //                     SizedBox(
-          //                       height: 4,
-          //                     ),
-          //                     Indicator(
-          //                       color: Color(0xfff8b250),
-          //                       text: 'Second',
-          //                       isSquare: true,
-          //                     ),
-          //                     SizedBox(
-          //                       height: 4,
-          //                     ),
-          //                     Indicator(
-          //                       color: Color(0xff845bef),
-          //                       text: 'Third',
-          //                       isSquare: true,
-          //                     ),
-          //                     SizedBox(
-          //                       height: 4,
-          //                     ),
-          //                     Indicator(
-          //                       color: Color(0xff13d38e),
-          //                       text: 'Fourth',
-          //                       isSquare: true,
-          //                     ),
-          //                     SizedBox(
-          //                       height: 18,
-          //                     ),
-          //                   ],
-          //                 ),
-          //                 const SizedBox(
-          //                   width: 28,
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         );
-          //       }
-          //
-          //       return Container();
-          //     })),
           Expanded(
             child: FutureBuilder<dynamic>(
                 future: drawLineChart(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        AspectRatio(
-                          aspectRatio: 0.8,
-                          child: Card(
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                            color: const Color(0xff020227),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 16.0),
-                              child: BarChart(
-                                BarChartData(
-                                  alignment: BarChartAlignment.center,
-                                  maxY: 20,
-                                  minY: -20,
-                                  groupsSpace: 12,
-                                  barTouchData: BarTouchData(
-                                    handleBuiltInTouches: false,
-                                    touchCallback: (FlTouchEvent event, barTouchResponse) {
-                                      if (!event.isInterestedForInteractions ||
-                                          barTouchResponse == null ||
-                                          barTouchResponse.spot == null) {
-                                        setState(() {
-                                          touchedIndex = -1;
-                                        });
-                                        return;
-                                      }
-                                      final rodIndex = barTouchResponse.spot!.touchedRodDataIndex;
-                                      if (isShadowBar(rodIndex)) {
-                                        setState(() {
-                                          touchedIndex = -1;
-                                        });
-                                        return;
-                                      }
-                                      setState(() {
-                                        touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
-                                      });
-                                    },
-                                  ),
-                                  titlesData: FlTitlesData(
-                                    show: true,
-                                    topTitles: AxisTitles(
-                                      sideTitles: SideTitles(
-                                        showTitles: true,
-                                        reservedSize: 32,
-                                        // getTitlesWidget: topTitles,
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+
+                          children: [
+                            AspectRatio(
+                              aspectRatio: 0.8,
+                              child: Card(
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                                color: const Color(0xff020227),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 16.0),
+                                  child: BarChart(
+                                    BarChartData(
+                                      alignment: BarChartAlignment.center,
+
+
+
+                                      minY: 0,
+                                      groupsSpace: 12,
+                                      barTouchData: BarTouchData(
+                                        touchTooltipData: BarTouchTooltipData(
+
+                                        ),
+                                        handleBuiltInTouches: false,
+                                          touchCallback: (event, response) {
+                                            if (response != null && response.spot != null && event is FlTapUpEvent) {
+                                            setState(() {
+                                              final x = response.spot!.touchedBarGroup.x;
+                                              final isShowing = showingTooltip == x;
+                                              if (isShowing) {
+                                                showingTooltip = -1;
+                                              } else {
+                                                showingTooltip = x!;
+                                              }
+                                            });
+                                            return;
+                                          }
+                                          final rodIndex = response?.spot!.touchedRodDataIndex;
+                                          if (isShadowBar(rodIndex!)) {
+                                            setState(() {
+                                              touchedIndex = -1;
+                                            });
+                                            return;
+                                          }
+                                          setState(() {
+
+                                            touchedIndex = response!.spot!.touchedBarGroupIndex;
+                                          });
+                                        },
                                       ),
-                                    ),
-                                    bottomTitles: AxisTitles(
-                                      sideTitles: SideTitles(
-                                        showTitles: true,
-                                        reservedSize: 32,
-                                        // getTitlesWidget: bottomTitles,
+                                      titlesData: FlTitlesData(
+                                        show: true,
+                                        topTitles: AxisTitles(
+                                          sideTitles: SideTitles(
+
+                                            showTitles: true,
+                                            reservedSize: 32,
+                                            // getTitlesWidget: topTitles,
+                                          ),
+                                        ),
+                                        bottomTitles: AxisTitles(
+                                          sideTitles: SideTitles(
+                                            showTitles: true,
+                                            reservedSize: 32,
+                                            // getTitlesWidget: bottomTitles,
+                                          ),
+                                        ),
+                                        leftTitles: AxisTitles(
+                                          sideTitles: SideTitles(
+                                            showTitles: true,
+                                            // getTitlesWidget: leftTitles,
+                                            interval: 5,
+                                            reservedSize: 42,
+                                          ),
+                                        ),
+                                        rightTitles: AxisTitles(
+                                          sideTitles: SideTitles(
+                                            showTitles: true,
+                                            // getTitlesWidget: rightTitles,
+                                            interval: 5,
+                                            reservedSize: 42,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    leftTitles: AxisTitles(
-                                      sideTitles: SideTitles(
-                                        showTitles: true,
-                                        // getTitlesWidget: leftTitles,
-                                        interval: 5,
-                                        reservedSize: 42,
+                                      gridData: FlGridData(
+                                        show: true,
+                                        checkToShowHorizontalLine: (value) => value % 5 == 0,
+                                        getDrawingHorizontalLine: (value) {
+                                          if (value == 0) {
+                                            return FlLine(
+                                                color: const Color(0xff363753), strokeWidth: 3);
+                                          }
+                                          return FlLine(
+                                            color: const Color(0xff2a2747),
+                                            strokeWidth: 0.8,
+                                          );
+                                        },
                                       ),
-                                    ),
-                                    rightTitles: AxisTitles(
-                                      sideTitles: SideTitles(
-                                        showTitles: true,
-                                        // getTitlesWidget: rightTitles,
-                                        interval: 5,
-                                        reservedSize: 42,
+                                      borderData: FlBorderData(
+                                        show: false,
                                       ),
+                                      barGroups: Map.from(snapshot.data as Map<int,List<double>>).entries
+                                          .map((e) => generateGroup(
+                                          e.key, e.value[0], e.value[1], e.value[2], e.value[3]))
+                                          .toList(),
                                     ),
+
                                   ),
-                                  gridData: FlGridData(
-                                    show: true,
-                                    checkToShowHorizontalLine: (value) => value % 5 == 0,
-                                    getDrawingHorizontalLine: (value) {
-                                      if (value == 0) {
-                                        return FlLine(
-                                            color: const Color(0xff363753), strokeWidth: 3);
-                                      }
-                                      return FlLine(
-                                        color: const Color(0xff2a2747),
-                                        strokeWidth: 0.8,
-                                      );
-                                    },
-                                  ),
-                                  borderData: FlBorderData(
-                                    show: false,
-                                  ),
-                                  barGroups: Map.from(snapshot.data as Map<int,List<double>>).entries
-                                      .map((e) => generateGroup(
-                                      e.key, e.value[0], e.value[1], e.value[2], e.value[3]))
-                                      .toList(),
                                 ),
                               ),
-                            ),
-                          ),
-                        )
-                        // LineChart(
-                        //   LineChartData(
-                        //
-                        //   ),
-                        // )
+                            )
+                            // LineChart(
+                            //   LineChartData(
+                            //
+                            //   ),
+                            // )
 
-                        // PieChart(
-                        // snapshot.data,
-                        // swapAnimationDuration: Duration(milliseconds: 150), // Optional
-                        // swapAnimationCurve: Curves.linear, // Optional
-                        // ),
-                        // PieChart(
-                        //   dataMap: snapshot.data,
-                        //   animationDuration: Duration(milliseconds: 800),
-                        //   chartLegendSpacing: 32,
-                        //   chartRadius: MediaQuery.of(context).size.width / 3.2,
-                        //   // colorList: [Colors.red,Colors.yellow,Colors.blue, Colors.green],
-                        //   initialAngleInDegree: 0,
-                        //   chartType: ChartType.ring,
-                        //   ringStrokeWidth: 32,
-                        //   centerText: "HYBRID",
-                        //   gradientList: gradientList,
-                        //   emptyColorGradient: [
-                        //     Color(0xff6c5ce7),
-                        //     Colors.blue,
-                        //   ],
-                        //   legendOptions: LegendOptions(
-                        //     showLegendsInRow: false,
-                        //     legendPosition: LegendPosition.right,
-                        //     showLegends: true,
-                        //     // legendShape: _BoxShape.circle,
-                        //     legendTextStyle: TextStyle(
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        //   chartValuesOptions: ChartValuesOptions(
-                        //     showChartValueBackground: true,
-                        //     showChartValues: true,
-                        //     showChartValuesInPercentage: false,
-                        //     showChartValuesOutside: false,
-                        //     decimalPlaces: 1,
-                        //   ),
-                        //   // gradientList: ---To add gradient colors---
-                        //   // emptyColorGradient: ---Empty Color gradient---
-                        // ),
-                      ],
+                            // PieChart(
+                            // snapshot.data,
+                            // swapAnimationDuration: Duration(milliseconds: 150), // Optional
+                            // swapAnimationCurve: Curves.linear, // Optional
+                            // ),
+                            // PieChart(
+                            //   dataMap: snapshot.data,
+                            //   animationDuration: Duration(milliseconds: 800),
+                            //   chartLegendSpacing: 32,
+                            //   chartRadius: MediaQuery.of(context).size.width / 3.2,
+                            //   // colorList: [Colors.red,Colors.yellow,Colors.blue, Colors.green],
+                            //   initialAngleInDegree: 0,
+                            //   chartType: ChartType.ring,
+                            //   ringStrokeWidth: 32,
+                            //   centerText: "HYBRID",
+                            //   gradientList: gradientList,
+                            //   emptyColorGradient: [
+                            //     Color(0xff6c5ce7),
+                            //     Colors.blue,
+                            //   ],
+                            //   legendOptions: LegendOptions(
+                            //     showLegendsInRow: false,
+                            //     legendPosition: LegendPosition.right,
+                            //     showLegends: true,
+                            //     // legendShape: _BoxShape.circle,
+                            //     legendTextStyle: TextStyle(
+                            //       fontWeight: FontWeight.bold,
+                            //     ),
+                            //   ),
+                            //   chartValuesOptions: ChartValuesOptions(
+                            //     showChartValueBackground: true,
+                            //     showChartValues: true,
+                            //     showChartValuesInPercentage: false,
+                            //     showChartValuesOutside: false,
+                            //     decimalPlaces: 1,
+                            //   ),
+                            //   // gradientList: ---To add gradient colors---
+                            //   // emptyColorGradient: ---Empty Color gradient---
+                            // ),
+                          ],
+                        ),
+                      ),
                     );
                   }
                   return CircularProgressIndicator();
                 }
+            ),
+          ),
+          Text("Timestamps"),
+
+
+          SizedBox(
+
+            child: Column(
+              children: [
+                Pallete("Happy" ,Color(0xff2bdb90)),
+                SizedBox(height: 10,),
+                Pallete("Sad",Color(0xffffdd80)),
+                SizedBox(height: 10,),
+                Pallete("Angry",Colors.red),
+                SizedBox(height: 10,),
+                Pallete("Neutral",Color(0xff19bfff)),
+              ],
             ),
           ),
           IconButton(
@@ -578,10 +459,11 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
 
               },
               icon:  Icon(Icons.navigate_next_rounded)
-          )
+          ),
         ],
       ),
     );
+
   }
 
   // Future<List<PieChartSectionData>> showingSections() async {
@@ -641,6 +523,23 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
   //     }
   //   });
   // }
+
+  Widget Pallete(String feelings, Color color){
+    return Row(
+      children: [
+            SizedBox(width: 20,),
+            ColoredBox(
+                color: color,
+                child: SizedBox(
+                  width: 20,
+                  height: 20,
+                ),
+            ),
+            SizedBox(width: 10,),
+            Text("${feelings}")
+        ],
+      );
+}
 
   getData(String? category_name) async {
 
@@ -816,10 +715,10 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
   drawPieChart() async {
     final listPieChart = await getEmotions(widget.videoName);
     Map<String,double> dataMap ={
-      "0 Angry":0,
-      "1 Sad":0,
-      "2 Happy":0,
-      "3 Neutral":0
+      "Angry":0,
+      "Sad":0,
+      "Happy":0,
+      "Neutral":0
     };
     print("--------------------------------------------------------------------------------------");
     print("--------------------------------------------------------------------------------------");
@@ -916,19 +815,19 @@ class _ShowGraphsCopyState extends State<ShowGraphsCopy> {
       // List<String> timeStamKeyList = llc.keys.sort(intmyComparator);
 
       for(final timestampKeys in llc.keys){
-        if(llc[timestampKeys]=="0 Angry")
+        if(llc[timestampKeys]=="Angry")
         {
           dataMapLine[int.parse(timestampKeys)]?[0]++;
         }
-        else if(llc[timestampKeys]=="1 Sad")
+        else if(llc[timestampKeys]=="Sad")
         {
           dataMapLine[int.parse(timestampKeys)]?[1]++;
         }
-        else if(llc[timestampKeys]=="2 Happy")
+        else if(llc[timestampKeys]=="Happy")
         {
           dataMapLine[int.parse(timestampKeys)]?[2]++;
         }
-        else if(llc[timestampKeys]=="3 Neutral")
+        else if(llc[timestampKeys]=="Neutral")
         {
           dataMapLine[int.parse(timestampKeys)]?[3]++;
         }

@@ -232,7 +232,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                   children: <Widget>[
                     SizedBox(
                       height: 200,
-                      child: Image.asset('assets/welcome.png',width: 350,),
+                      child: Image.asset('assets/welcome2.png',width: 350,),
                     ),
                     SizedBox(height: 20,),
                     firstnameField,
@@ -303,5 +303,6 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
     Fluttertoast.showToast(msg: "Account created successfully :)");
 
     Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context) => Home(value: value)), (route) => false);
+    //Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context) => SignInPage()), (route) => false);
   }
 }

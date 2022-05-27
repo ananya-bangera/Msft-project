@@ -143,10 +143,10 @@ class _PieChartAnalysisState extends State<PieChartAnalysis> {
   drawPieChart() async {
     final listPieChart = await getEmotions(widget.videoName);
     Map<String,double> dataMap ={
-      "0 Angry":0,
-      "1 Sad":0,
-      "2 Happy":0,
-      "3 Neutral":0
+      "Angry":0,
+      "Sad":0,
+      "Happy":0,
+      "Neutral":0
     };
     print("--------------------------------------------------------------------------------------");
     print("--------------------------------------------------------------------------------------");

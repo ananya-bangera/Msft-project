@@ -40,7 +40,7 @@ class myApp extends StatelessWidget {
         )
       ],
     child:MaterialApp(
-      title: 'Adv',
+      title: 'AdvertAIse',
       debugShowCheckedModeBanner: false,
       themeMode:ThemeMode.system,
       theme: ThemeClass.lightTheme,

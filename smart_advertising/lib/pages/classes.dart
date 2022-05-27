@@ -19,6 +19,6 @@ class ThemeClass{
 }
 class obj{
   String? name;
-  Icon? icon;
-  obj({required this.name,required this.icon});
+  NetworkImage img;
+  obj({required this.name,required this.img});
 }

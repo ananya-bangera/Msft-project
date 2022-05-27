@@ -26,35 +26,41 @@ class _ListVideosState extends State<ListVideos> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: FutureBuilder<dynamic>(
-        future: getData(widget.category_name),
-        builder: (context, snapshot){
-        if (snapshot.hasData) {
+        appBar: AppBar(
+          title: Text("${widget.category_name}"),
+          backgroundColor:Theme.of(context).appBarTheme.backgroundColor,
+        ),
+      body: Center(
+        child: FutureBuilder<dynamic>(
+          future: getData(widget.category_name),
+          builder: (context, snapshot){
+          if (snapshot.hasData) {
 
-            return  ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: (){
-                           Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ShowGraphsCopy(category_name: widget.category_name,videoName: snapshot.data[index]))
-                          );
-                        },
-                        child: Container(
-                          height: 50,
-                          // color: Colors.amber[colorCodes[index]],
-                          child: Center(child: Text(snapshot.data[index].toString())),
-                        ),
-                      );
-                    }
-                );
-              }
-        else{
-          return CircularProgressIndicator();
-        }
-         }
+              return  ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                          onTap: (){
+                             Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ShowGraphs(category_name: widget.category_name,videoName: snapshot.data[index]))
+                            );
+                          },
+                          child: Container(
+                            height: 50,
+                            // color: Colors.amber[colorCodes[index]],
+                            child: Center(child: Text(snapshot.data[index].toString())),
+                          ),
+                        );
+                      }
+                  );
+                }
+          else{
+            return CircularProgressIndicator();
+          }
+           }
+        ),
       )
       // body: ListView.builder(
       //     padding: const EdgeInsets.all(8),

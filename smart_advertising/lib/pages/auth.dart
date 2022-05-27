@@ -119,7 +119,7 @@ class _SignInPageState extends State<SignInPage> {
     final logInButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: Colors.grey,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery
@@ -139,7 +139,7 @@ class _SignInPageState extends State<SignInPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Demo"),
+        title: Text("AdvertAIse"),
         backgroundColor: Theme
             .of(context)
             .appBarTheme
@@ -159,7 +159,7 @@ class _SignInPageState extends State<SignInPage> {
                     children: <Widget>[
                       SizedBox(
                         height: 200,
-                        child: Image.asset('assets/welcome.png', width: 350,),
+                        child: Image.asset('assets/welcome2.png', width: 350,),
                       ),
                       SizedBox(height: 15,),
                       emailField,

@@ -23,9 +23,8 @@ class _DisplayVideoState extends State<DisplayVideo> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Adv"),
-          backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
-
+          title: Text("${widget.category_name}"),
+          backgroundColor:Theme.of(context).appBarTheme.backgroundColor,
         ),
         body: FutureBuilder<List<FirebaseFile>>(
           future: futureFiles,
@@ -52,7 +51,7 @@ class _DisplayVideoState extends State<DisplayVideo> {
                               itemCount: files.length,
                               itemBuilder: (context, index){
                                 final file = files[index];
-                                return buildFile(context, file);
+                                return buildFile(context, file,index);
                               }
                           )
                       )
@@ -91,24 +90,37 @@ class _DisplayVideoState extends State<DisplayVideo> {
 
   }
 
-  Widget buildFile(BuildContext context, FirebaseFile file) {
-    return ListTile(
-      title: Text(
-        file.name,
-        style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize:20,
-            color: Colors.white
+  Widget buildFile(BuildContext context, FirebaseFile file, int index) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          color: Colors.grey,
+          child: ListTile(
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'File${index+1}: ${file.name}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize:20,
+                  color: Colors.white,
 
-        ),
 
-
-      ),
-      onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => VideoPage(file: file,fileName: file.name.toString()),
-        ));
-      },
+                ),
+              ),
+            ),
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => VideoPage(file: file,fileName: file.name.toString()),
+              ));
+            },
+          ),
+        )
+      
     );
   }
 }

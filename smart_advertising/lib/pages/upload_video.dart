@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:path/path.dart';
 import 'package:smart_advertising/pages/home.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../api/firebase_api.dart';
 
@@ -31,17 +32,31 @@ class _UploadVideoState extends State<UploadVideo> {
     final fileName = file != null ? basename(file!.path) : 'No File Selected';
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text("${widget.category_name}"),
+        backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
+      ),
       body: Container(
         padding: EdgeInsets.all(32),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
 
-                child: Row(
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape:  new CircleBorder(),
+                  padding: EdgeInsets.all(100),
+                  primary: Colors.orange
+                ),
+                child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: [Text('Select File'), Icon(Icons.attach_file)],
+
+                  children: [
+                    ButtonText(fileName),
+
+                    // Icon(Icons.attach_file)
+                 ],
                 ),
                 onPressed: (){
                   if(fileName=='No File Selected') {
@@ -52,10 +67,12 @@ class _UploadVideoState extends State<UploadVideo> {
                   }
                 },
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 200),
               Text(
                 fileName,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: GoogleFonts.montserrat(
+                    fontSize: 16, fontWeight: FontWeight.w500
+                ),
               ),
               SizedBox(height: 48),
 
@@ -137,4 +154,21 @@ class _UploadVideoState extends State<UploadVideo> {
     
 
   }
+}
+
+Widget ButtonText(String fileName) {
+  if(fileName=='No File Selected') {
+    return Text(
+      'Select Video',
+      style: GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.bold),
+    );
+  }
+  return Text(
+    'Upload Video',
+    style: GoogleFonts.montserrat(
+        fontSize: 15,
+        fontWeight: FontWeight.bold
+    ),
+
+  );
 }
