@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path/path.dart';
 import 'package:smart_advertising/pages/home.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -110,6 +111,7 @@ class _UploadVideoState extends State<UploadVideo> {
     final urlDownload = await snapshot.ref.getDownloadURL();
     insertUploads();
     print('Download-Link: $urlDownload');
+    Fluttertoast.showToast(msg: "Successfully uploaded the Advertisement");
     Navigator.of(this.context).pop();
 
   }

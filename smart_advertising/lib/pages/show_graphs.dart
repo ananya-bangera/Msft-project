@@ -292,29 +292,24 @@ class _ShowGraphsState extends State<ShowGraphs> {
 
                                         ),
                                         handleBuiltInTouches: false,
-                                          touchCallback: (event, response) {
-                                            if (response != null && response.spot != null && event is FlTapUpEvent) {
+                                        touchCallback: (FlTouchEvent event, barTouchResponse) {
+                                          if (!event.isInterestedForInteractions ||
+                                              barTouchResponse == null ||
+                                              barTouchResponse.spot == null) {
                                             setState(() {
-                                              final x = response.spot!.touchedBarGroup.x;
-                                              final isShowing = showingTooltip == x;
-                                              if (isShowing) {
-                                                showingTooltip = -1;
-                                              } else {
-                                                showingTooltip = x!;
-                                              }
+                                              touchedIndex = -1;
                                             });
                                             return;
                                           }
-                                          final rodIndex = response?.spot!.touchedRodDataIndex;
-                                          if (isShadowBar(rodIndex!)) {
+                                          final rodIndex = barTouchResponse.spot!.touchedRodDataIndex;
+                                          if (isShadowBar(rodIndex)) {
                                             setState(() {
                                               touchedIndex = -1;
                                             });
                                             return;
                                           }
                                           setState(() {
-
-                                            touchedIndex = response!.spot!.touchedBarGroupIndex;
+                                            touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
                                           });
                                         },
                                       ),
@@ -562,8 +557,6 @@ class _ShowGraphsState extends State<ShowGraphs> {
     //     videoName).collection("collection");
     // list.add(collectionReference);
     // Fluttertoast.showToast(msg: collectionReference.toString());
-
-
     CollectionReference collectionReference = await emotionsList.doc(
         videoName).collection("collection");
     QuerySnapshot querySnapshot = await collectionReference.get();

@@ -49,8 +49,29 @@ class _ListVideosState extends State<ListVideos> {
                           },
                           child: Container(
                             height: 50,
-                            // color: Colors.amber[colorCodes[index]],
-                            child: Center(child: Text(snapshot.data[index].toString())),
+                            child: Card(
+                              clipBehavior: Clip.antiAlias,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              color: Colors.grey,
+                              child: ListTile(
+                                title: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '${snapshot.data[index]}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:20,
+                                      color: Colors.white,
+
+
+                                    ),
+                                  ),
+                                ),
+
+                              ),
+                            ),
                           ),
                         );
                       }
