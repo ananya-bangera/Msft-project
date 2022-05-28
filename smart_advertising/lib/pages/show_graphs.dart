@@ -252,7 +252,7 @@ class _ShowGraphsState extends State<ShowGraphs> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Adv"),
+        title: Text("${widget.videoName}"),
         backgroundColor: Theme
             .of(context)
             .appBarTheme
@@ -445,7 +445,12 @@ class _ShowGraphsState extends State<ShowGraphs> {
               ],
             ),
           ),
-          IconButton(
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  shape:  new CircleBorder(),
+                  padding: EdgeInsets.all(10),
+                  primary: Colors.orange
+              ),
               onPressed: (){
                 Navigator.push(
                   context,
@@ -453,8 +458,10 @@ class _ShowGraphsState extends State<ShowGraphs> {
                 );
 
               },
-              icon:  Icon(Icons.navigate_next_rounded)
+              child: Icon(Icons.navigate_next_rounded)
           ),
+          SizedBox(height: 10,)
+
         ],
       ),
     );

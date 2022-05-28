@@ -35,7 +35,7 @@ class _PieChartAnalysisState extends State<PieChartAnalysis> {
     ];
     return Scaffold(
         appBar: AppBar(
-        title: Text("Adv"),
+        title: Text("${widget.videoName}"),
     backgroundColor: Theme
         .of(context)
         .appBarTheme
@@ -88,13 +88,20 @@ class _PieChartAnalysisState extends State<PieChartAnalysis> {
             return CircularProgressIndicator();
             }
         ),
-        IconButton(
+        SizedBox(height: 200,),
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                shape:  new CircleBorder(),
+                padding: EdgeInsets.all(10),
+                primary: Colors.orange
+            ),
             onPressed: (){
               Navigator.of(context).pop();
 
             },
-            icon:  Icon(Icons.arrow_back_ios)
-        )
+            child:  Icon(Icons.navigate_before_rounded)
+        ),
+
       ],
     )
     );

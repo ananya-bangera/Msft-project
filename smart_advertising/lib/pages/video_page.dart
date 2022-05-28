@@ -127,7 +127,7 @@ class VideoPageState extends State<VideoPage> {
             builder: (context, snapshot) {
 
               emotionList[_controller.value.position.inSeconds.toString()]=output;
-              Fluttertoast.showToast(msg: emotionList.length.toString());
+              // Fluttertoast.showToast(msg: emotionList.length.toString());
               if (snapshot.connectionState == ConnectionState.done) {
 
                 return Center(

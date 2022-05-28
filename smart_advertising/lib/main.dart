@@ -2,9 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_advertising/pages/authenticationService.dart';
+import 'package:smart_advertising/pages/authentication_service.dart';
 import 'package:smart_advertising/pages/home.dart';
-import 'package:smart_advertising/pages/registeration.dart';
 import 'package:smart_advertising/pages/onboarding.dart';
 import 'package:smart_advertising/pages/classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,8 +47,7 @@ class myApp extends StatelessWidget {
 
       initialRoute: '/',
       routes: {
-        '/':(context) => SignInPage()//OnBoardingPage()//RegisterationScreen() //AuthenticationWrapper()// OnBoardingPage(),
-        // '/auth':(context) => AuthenticationWrapper(),
+        '/':(context) => OnBoardingPage()
 
       },
     ),

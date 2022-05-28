@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:smart_advertising/model/user_model.dart';
-import 'package:smart_advertising/pages/authenticationService.dart';
+import 'package:smart_advertising/pages/authentication_service.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_advertising/pages/home.dart';
 

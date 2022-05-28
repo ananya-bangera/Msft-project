@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_advertising/model/user_model.dart';
-import 'package:smart_advertising/pages/authenticationService.dart';
+import 'package:smart_advertising/pages/authentication_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:provider/provider.dart';
-import 'package:smart_advertising/pages/authenticationService.dart';
+import 'package:smart_advertising/pages/authentication_service.dart';
 import 'package:smart_advertising/pages/home.dart';
 import 'package:smart_advertising/pages/onboarding.dart';
 import 'package:smart_advertising/pages/classes.dart';
@@ -14,6 +15,7 @@ import 'package:smart_advertising/pages/profile.dart';
 import 'package:smart_advertising/pages/registeration.dart';
 import 'package:smart_advertising/pages/upload_video.dart';
 
+import 'about_us.dart';
 import 'analysis.dart';
 import 'display_video.dart';
 
@@ -35,27 +37,31 @@ class _HomeState extends State<Home> {
 
     // Categories
     List<obj> names = [
-      obj(name: 'Eatables',img: NetworkImage('https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170')),
-      obj(name: 'Cosmetics',img: NetworkImage('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1187&q=80')),
-      obj(name: 'Footwear',img: NetworkImage('https://images.unsplash.com/photo-1549971352-c31ced98e984?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170')),
-      obj(name: 'Watches',img: NetworkImage('https://images.unsplash.com/photo-1535449425-adc6f5faa71c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')),
-      obj(name: 'Phones',img: NetworkImage('https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')),
-      obj(name: 'Books and Toys',img: NetworkImage('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1122&q=80')),
-      obj(name: 'Books and Toys',img: NetworkImage('https://images.unsplash.com/photo-1564429238817-393bd4286b2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')),
-      obj(name: 'Appliances',img: NetworkImage('https://images.unsplash.com/photo-1583241475880-083f84372725?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80')),
+      obj(name: 'Eatables',img: 'https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170'),
+      obj(name: 'Cosmetics',img: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1187&q=80'),
+      obj(name: 'Footwear',img: 'https://images.unsplash.com/photo-1549971352-c31ced98e984?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170'),
+      obj(name: 'Watches',img: 'https://images.unsplash.com/photo-1535449425-adc6f5faa71c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'),
+      obj(name: 'Phones',img: 'https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'),
+      obj(name: 'Books',img: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1122&q=80'),
+      obj(name: 'Toys',img: 'https://images.unsplash.com/photo-1564429238817-393bd4286b2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'),
+      obj(name: 'Appliances',img: 'https://images.unsplash.com/photo-1583241475880-083f84372725?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'),
     ];
-    Widget advCard(String? category_name,NetworkImage img) => Center(
+    Widget advCard(String? category_name,String img) => Center(
       child:  Card(
+
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
       ),
       child: Stack(
+
         alignment: Alignment.center,
         children: [
           Ink.image(
-            image: img,
+            image: NetworkImage(img),
+            colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.dstATop),
             child: InkWell(
+
               onTap: (){
                 print(widget.value);
                 if(widget.value =="Company") {
@@ -75,63 +81,20 @@ class _HomeState extends State<Home> {
             height: 150,
             fit: BoxFit.cover,
           ),
-          Text(
-            '${category_name}',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontSize: 24,
+          Center(
+            child: Text(
+              '${category_name}',
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 24,
+              ),
             ),
           ),
         ],
       ),
     ),
     );
-
-    // Widget advCard(String? category_name,Image? img) =>  Center(
-    //     child: Card(
-    //       shadowColor: Colors.white,
-    //       clipBehavior: Clip.antiAlias,
-    //       shape: RoundedRectangleBorder(
-    //           borderRadius: BorderRadius.circular(24)
-    //       ),
-    //       child: InkWell(
-    //
-    //         child: Container(
-    //           width: width*0.9,
-    //           color: Colors.grey,
-    //           padding: const EdgeInsets.all(46.5),
-    //           child: Center(
-    //             child: Row(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Center(
-    //                   child: img,
-    //                 ),
-    //                 const SizedBox(width: 15),
-    //                 Column(
-    //                   children: [
-    //
-    //                     const SizedBox(height: 5,),
-    //                     Center(
-    //                       child: Text(
-    //                         "${category_name}",
-    //                         style: TextStyle(
-    //                             fontSize: 24,
-    //                             fontWeight: FontWeight.bold),
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //
-    //
-    //     )
-    // );
 
     return Scaffold(
           appBar: AppBar(
@@ -192,10 +155,12 @@ class _HomeState extends State<Home> {
                               Center(
                                 heightFactor: 0.6,
                                 child: FloatingActionButton(onPressed: (){
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => DataAnalysis()),
-                                  );
+                                    if(widget.value =="Company") {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => DataAnalysis()),
+                                      );
+                                    }
                                 },
                                   backgroundColor: Colors.orange,
                                   child: Icon(Icons.analytics), elevation:0.1,),
@@ -208,9 +173,11 @@ class _HomeState extends State<Home> {
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children:[
                                       IconButton(
-                                        icon: Icon(Icons.home,color: Colors.black,),
+                                        icon: Icon(Icons.info,color: Colors.black,),
                                         onPressed: (){
-
+                                          Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => AboutUs(),
+                                          ));
                                         },
                                       ),
                                       IconButton(
@@ -247,9 +214,6 @@ class _HomeState extends State<Home> {
             )
                ],
             ),
-
-
-
     );
 
 

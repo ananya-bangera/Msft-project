@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:smart_advertising/model/user_model.dart';
 import 'package:smart_advertising/pages/home.dart';
 
+import 'auth.dart';
+
 class RegisterationScreen extends StatefulWidget {
   const RegisterationScreen({Key? key}) : super(key: key);
 
@@ -195,7 +197,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
     final signUpButton = Material(
       elevation:5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: Colors.grey,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
@@ -211,11 +213,30 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
         ),
       ),
     );
+    final gotoLogin =  Material(
+            elevation:5,
+            borderRadius: BorderRadius.circular(30),
+            color: Colors.grey,
+            child: MaterialButton(
+            padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+            minWidth: MediaQuery.of(context).size.width,
+            onPressed: (){
+                  Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context) => SignInPage()), (route) => false);
+          },
+              child: Text(
+                "Goto Login",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold
+              )
+            ),
+      ),
+    );
 
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Adv"),
+        title: Text("AdvertAIse"),
         backgroundColor:Theme.of(context).appBarTheme.backgroundColor ,
       ),
       body: Center(
@@ -248,6 +269,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                     userType,
                     SizedBox(height: 20,),
                     signUpButton,
+                    SizedBox(height: 20,),
+                    gotoLogin,
                     SizedBox(height: 20,),
                  ],
                 ),
@@ -303,6 +326,5 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
     Fluttertoast.showToast(msg: "Account created successfully :)");
 
     Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context) => Home(value: value)), (route) => false);
-    //Navigator.pushAndRemoveUntil((context), MaterialPageRoute(builder: (context) => SignInPage()), (route) => false);
   }
 }
