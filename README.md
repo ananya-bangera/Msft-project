@@ -26,6 +26,7 @@
 - [⚙Usage](#usage)
 - [👨‍💻Contributors](#contributors)
 - [👨‍🏫Acknowledgement](#acknowledgement)
+- [📱Screenshots](#screenshots)
 
 </details>
 
@@ -191,3 +192,14 @@ Based on your Android Development environment, proceed for a Gradle Build to deb
 ## 👨‍🏫Acknowledgement
 - Mentor - [Naveen Luhach](https://www.linkedin.com/in/naveenluhach/)
 - [Microsoft Engage 2022](https://acehacker.com/microsoft/engage2022/)
+
+## 📱Screenshots
+<p align="middle">
+  <img src="screenshots/REGISTER.jpeg" width="250" />
+  <img src="screenshots/HOMEPAGE1.jpeg" width="250" /> 
+  <img src="screenshots/BARCHART.jpeg" width="250" />
+  <img src="screenshots/PIECHART.jpeg" width="250" />
+  <img src="screenshots/UPLOADVIDEO.jpeg" width="250" />
+  <img src="screenshots/DISPLAYVIDEO.jpeg" width="250" />
+</p>
+
