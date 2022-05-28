@@ -80,7 +80,9 @@ Develop a browser-based application or a native mobile application to demonstrat
 
 ## 🔗Resources
 - [GitHub Repository](https://github.com/ananya-bangera/Msft-project)
-- [APK File, Documents and Screenshots](https://drive.google.com/drive/folders/1aiDY02VZ10hknM_WMyIHJmKFSIF6cFCN?usp=sharing)
+- [APK File](https://drive.google.com/drive/folders/17_rcEcp332EcuV5EV56v7NPeM7c8dvcp?usp=sharing)
+- [Documents-UML Use Case Diagram, PPT & Process Flow Chart](https://drive.google.com/drive/folders/12pILLqwV-JuZd3q_nJBuwFiE9rygRqG6?usp=sharing)
+- [Screenshots](https://drive.google.com/drive/folders/1YZMpvXM0elyQD16z3-4FtwkxDxa7AoVI?usp=sharing)
 - [Demo Video](https://youtu.be/TQ8fPB1fh5Q)
 - [Figma Designs](https://www.figma.com/file/JRvXBmStKHIcLepytgANr9/Smart-Advertising?node-id=0%3A1)
 
