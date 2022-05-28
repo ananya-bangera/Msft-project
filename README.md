@@ -195,11 +195,55 @@ Based on your Android Development environment, proceed for a Gradle Build to deb
 
 ## 📱Screenshots
 <p align="middle">
-  <img src="screenshots/REGISTER.jpeg" width="250" />
-  <img src="screenshots/HOMEPAGE1.jpeg" width="250" /> 
-  <img src="screenshots/BARCHART.jpeg" width="250" />
-  <img src="screenshots/PIECHART.jpeg" width="250" />
-  <img src="screenshots/UPLOADVIDEO.jpeg" width="250" />
-  <img src="screenshots/DISPLAYVIDEO.jpeg" width="250" />
-</p>
+   <br>
+<table>
+  <tr>
+    <td><b>REGISTER </b></td>
+     <td><b>HOMEPAGE </b></td>
+  </tr>
+  <tr>
+    <td> <img src="screenshots/REGISTER.jpeg" width="250" /></td>
+    <td><img src="screenshots/HOMEPAGE1.jpeg" width="250" /></td>
+  </tr>
+ </table>
+ <br>
+
+<br>
+<b></b>
+ <br>
+    <br>
+<table>
+  <tr>
+    <td><b> BARCHART</b></td>
+     <td><b>PIECHART </b></td>
+  </tr>
+  <tr>
+    <td> <img src="screenshots/BARCHART.jpeg" width="250" /></td>
+    <td><img src="screenshots/PIECHART.jpeg" width="250" /></td>
+  </tr>
+ </table>
+ <br>
+
+<br>
+<b></b>
+ <br>
+    <br>
+<table>
+  <tr>
+    <td><b> UPLOADVIDEO</b></td>
+     <td><b>DISPLAYVIDEO </b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/UPLOADVIDEO.jpeg" width="250" /></td>
+    <td><img src="screenshots/DISPLAYVIDEO.jpeg" width="250" /></td>
+  </tr>
+ </table>
+ <br>
+
+<br>
+<b></b>
+ <br>
+ 
+   
+
 
