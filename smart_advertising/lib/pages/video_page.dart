@@ -125,15 +125,6 @@ class VideoPageState extends State<VideoPage> {
               }
             },
           ),
-          Text(
-            widget.fileName +
-                " " +
-                output +
-                " " +
-                _controller.value.position.inSeconds.toString() +
-                ",",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
