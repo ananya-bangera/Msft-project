@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:firebase_storage/firebase_storage.dart';
-
 import '../model/firebase_file.dart';
 
 class FirebaseApi {
@@ -15,6 +13,7 @@ class FirebaseApi {
       return null;
     }
   }
+
   static UploadTask? uploadBytes(String destination, Uint8List data) {
     try {
       final ref = FirebaseStorage.instance.ref(destination);
@@ -37,21 +36,13 @@ class FirebaseApi {
     return urls
         .asMap()
         .map((index, url) {
-            final ref = result.items[index];
-            final name = ref.name;
-            final file = FirebaseFile(ref: ref, name: name, url: url);
+          final ref = result.items[index];
+          final name = ref.name;
+          final file = FirebaseFile(ref: ref, name: name, url: url);
 
-            return MapEntry(index, file);
+          return MapEntry(index, file);
         })
         .values
         .toList();
   }
-
-  // static Future downloadFile(Reference ref) async {
-  //   final dir = await getApplicationDocumentsDirectory();
-  //   final file = File('${dir.path}/${ref.name}');
-  //
-  //   await ref.writeToFile(file);
-  // }
-
 }

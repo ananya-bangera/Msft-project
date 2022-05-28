@@ -1,12 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_advertising/pages/show_graphs.dart';
-
-
 import 'classes.dart';
 import 'list_of_videos.dart';
 
@@ -77,52 +70,6 @@ class _DataAnalysisState extends State<DataAnalysis> {
         ),
       ),
     );
-    // Widget advCard(String? category_name) =>  Center(
-    //     child: Card(
-    //       shadowColor: Colors.white,
-    //       clipBehavior: Clip.antiAlias,
-    //       shape: RoundedRectangleBorder(
-    //           borderRadius: BorderRadius.circular(24)
-    //       ),
-    //       child: InkWell(
-    //
-    //         child: Container(
-    //           width: width*0.9,
-    //           color: Colors.grey,
-    //           padding: const EdgeInsets.all(46.5),
-    //           child: Center(
-    //             child: Row(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Center(
-    //                   child: CircleAvatar(
-    //                     child:  Icon(Icons.food_bank_outlined),
-    //                   ),
-    //                 ),
-    //                 const SizedBox(width: 15),
-    //                 Column(
-    //                   children: [
-    //                     const SizedBox(width: 15),
-    //                     Center(
-    //                       child: Text(
-    //                         "${category_name}",
-    //                         style: TextStyle(
-    //                             fontSize: 24,
-    //                             fontWeight: FontWeight.bold),
-    //                         ),
-    //
-    //                       ),
-    //
-    //                   ]
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //     )
-    // );
-
     return Scaffold(
         appBar: AppBar(
           title: Text("Analysis"),
@@ -167,7 +114,7 @@ class _DataAnalysisState extends State<DataAnalysis> {
                         }
                         return Container();
                       }
-          ),
+                   ),
                 ),
 
               ],

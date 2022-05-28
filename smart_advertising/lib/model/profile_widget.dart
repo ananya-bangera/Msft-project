@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -48,18 +46,18 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildEditIcon(Color color) => buildCircle(
-    color: Colors.white,
-    all: 3,
-    child: buildCircle(
-      color: color,
-      all: 8,
-      child: Icon(
-        Icons.edit,
         color: Colors.white,
-        size: 20,
-      ),
-    ),
-  );
+        all: 3,
+        child: buildCircle(
+          color: color,
+          all: 8,
+          child: Icon(
+            Icons.edit,
+            color: Colors.white,
+            size: 20,
+          ),
+        ),
+      );
 
   Widget buildCircle({
     required Widget child,

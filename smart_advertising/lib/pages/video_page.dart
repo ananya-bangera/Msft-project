@@ -1,30 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:smart_advertising/model/emotion_list.dart';
-import 'package:smart_advertising/model/emotion.dart';
 import 'package:smart_advertising/model/firebase_file.dart';
-import 'package:smart_advertising/pages/display_video.dart';
 import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
 import 'package:tflite/tflite.dart';
 import '../main.dart';
-import 'package:path/path.dart';
 
 class VideoPage extends StatefulWidget {
   final FirebaseFile file;
   final String fileName;
-  const VideoPage({Key? key,required this.file, required this.fileName}) : super(key: key);
+  const VideoPage({Key? key, required this.file, required this.fileName})
+      : super(key: key);
 
   @override
   VideoPageState createState() => VideoPageState();
 }
 
 class VideoPageState extends State<VideoPage> {
-
   //Firebase
   final _auth = FirebaseAuth.instance;
 
@@ -33,21 +28,18 @@ class VideoPageState extends State<VideoPage> {
   late Future<void> _initializeVideoPlayerFuture;
 
   //For saving the emotions list
-  DatabaseReference  reference = FirebaseDatabase.instance.ref(
-      "Emotions/videos"
-  ).push();
+  DatabaseReference reference =
+      FirebaseDatabase.instance.ref("Emotions/videos").push();
 
-  Map<String,String> emotionList ={};
+  Map<String, String> emotionList = {};
 
   //For the analysis model
   CameraImage? cameraImage;
   CameraController? cameraController;
   String output = '';
 
-
   @override
-  void initState(){
-
+  void initState() {
     _controller = VideoPlayerController.network('${widget.file.url}');
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.setLooping(true);
@@ -55,9 +47,7 @@ class VideoPageState extends State<VideoPage> {
     super.initState();
     loadCamera();
     loadmodel();
-
   }
-
 
   loadCamera() {
     cameraController = CameraController(cameras![0], ResolutionPreset.high);
@@ -77,7 +67,6 @@ class VideoPageState extends State<VideoPage> {
 
   runModel() async {
     if (cameraImage != null) {
-
       var predictions = await Tflite.runModelOnFrame(
           bytesList: cameraImage!.planes.map((plane) {
             return plane.bytes;
@@ -93,7 +82,6 @@ class VideoPageState extends State<VideoPage> {
       predictions!.forEach((element) {
         setState(() {
           output = element['label'];
-          // print(output);
         });
       });
     }
@@ -112,10 +100,6 @@ class VideoPageState extends State<VideoPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    final ref= reference.child(widget.fileName.toString()).push();
-
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Adv"),
@@ -125,11 +109,9 @@ class VideoPageState extends State<VideoPage> {
           FutureBuilder(
             future: _initializeVideoPlayerFuture,
             builder: (context, snapshot) {
-
-              emotionList[_controller.value.position.inSeconds.toString()]=output;
-              // Fluttertoast.showToast(msg: emotionList.length.toString());
+              emotionList[_controller.value.position.inSeconds.toString()] =
+                  output;
               if (snapshot.connectionState == ConnectionState.done) {
-
                 return Center(
                   child: AspectRatio(
                     aspectRatio: _controller.value.aspectRatio,
@@ -144,7 +126,12 @@ class VideoPageState extends State<VideoPage> {
             },
           ),
           Text(
-            widget.fileName + " " + output + " " + _controller.value.position.inSeconds.toString()+",",
+            widget.fileName +
+                " " +
+                output +
+                " " +
+                _controller.value.position.inSeconds.toString() +
+                ",",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           )
         ],
@@ -156,25 +143,27 @@ class VideoPageState extends State<VideoPage> {
               _controller.pause();
               createEmotion(emotionList);
               Navigator.of(context).pop();
-
             } else {
               _controller.play();
             }
           });
         },
         child:
-        Icon(_controller.value.isPlaying ? Icons.pause : Icons.play_arrow),
+            Icon(_controller.value.isPlaying ? Icons.pause : Icons.play_arrow),
       ),
     );
   }
 
-  createEmotion(Map<String,String> emotionList) async {
+  createEmotion(Map<String, String> emotionList) async {
     EmotionListModel emotionListModel = EmotionListModel();
     emotionListModel.eml = emotionList;
-
     User? user = _auth.currentUser;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    await firebaseFirestore.collection("Emotions").doc(widget.fileName.toString()).collection("collection").doc(user?.email).set(emotionListModel.toMap());
+    await firebaseFirestore
+        .collection("Emotions")
+        .doc(widget.fileName.toString())
+        .collection("collection")
+        .doc(user?.email)
+        .set(emotionListModel.toMap());
   }
 }
-

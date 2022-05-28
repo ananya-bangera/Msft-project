@@ -11,8 +11,8 @@ import 'pages/auth.dart';
 import 'package:flutter/services.dart';
 
 List<CameraDescription>? cameras;
-Future <void> main() async
-{
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   cameras = await availableCameras();
@@ -32,25 +32,23 @@ class myApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<AuthenticationService>(
-          create: (_)=> AuthenticationService(FirebaseAuth.instance),
+          create: (_) => AuthenticationService(FirebaseAuth.instance),
         ),
         StreamProvider(
-          create: (context) => context.read<AuthenticationService>().authStateChanges, initialData: null,
+          create: (context) =>
+              context.read<AuthenticationService>().authStateChanges,
+          initialData: null,
         )
       ],
-    child:MaterialApp(
-      title: 'AdvertAIse',
-      debugShowCheckedModeBanner: false,
-      themeMode:ThemeMode.system,
-      theme: ThemeClass.lightTheme,
-      darkTheme: ThemeClass.darkTheme,
-
-      initialRoute: '/',
-      routes: {
-        '/':(context) => OnBoardingPage()
-
-      },
-    ),
+      child: MaterialApp(
+        title: 'AdvertAIse',
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.system,
+        theme: ThemeClass.lightTheme,
+        darkTheme: ThemeClass.darkTheme,
+        initialRoute: '/',
+        routes: {'/': (context) => OnBoardingPage()},
+      ),
     );
   }
 }
@@ -61,10 +59,9 @@ class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
-    if(firebaseUser != null){
+    if (firebaseUser != null) {
       return Home();
     }
     return SignInPage();
   }
 }
-
