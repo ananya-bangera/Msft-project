@@ -79,8 +79,8 @@ Develop a browser-based application or a native mobile application to demonstrat
 
 ## 🔗Resources
 - [GitHub Repository](https://github.com/ananya-bangera/Msft-project)
-- [APK File]()
-- [Demo Video and Screenshots]()
+- [APK File, Documents and Screenshots](https://drive.google.com/drive/folders/1aiDY02VZ10hknM_WMyIHJmKFSIF6cFCN?usp=sharing)
+- [Demo Video]()
 - [Figma Designs](https://www.figma.com/file/JRvXBmStKHIcLepytgANr9/Smart-Advertising?node-id=0%3A1)
 
 ## 🤖Tech-Stack
