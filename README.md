@@ -26,6 +26,7 @@
 - [⚙Usage](#usage)
 - [👨‍💻Contributors](#contributors)
 - [👨‍🏫Acknowledgement](#acknowledgement)
+- [📱Screenshots](#screenshots)
 
 </details>
 
@@ -79,8 +80,10 @@ Develop a browser-based application or a native mobile application to demonstrat
 
 ## 🔗Resources
 - [GitHub Repository](https://github.com/ananya-bangera/Msft-project)
-- [APK File, Documents and Screenshots](https://drive.google.com/drive/folders/1aiDY02VZ10hknM_WMyIHJmKFSIF6cFCN?usp=sharing)
-- [Demo Video]()
+- [APK File](https://drive.google.com/drive/folders/17_rcEcp332EcuV5EV56v7NPeM7c8dvcp?usp=sharing)
+- [Documents-UML Use Case Diagram, PPT & Process Flow Chart](https://drive.google.com/drive/folders/12pILLqwV-JuZd3q_nJBuwFiE9rygRqG6?usp=sharing)
+- [Screenshots](https://drive.google.com/drive/folders/1YZMpvXM0elyQD16z3-4FtwkxDxa7AoVI?usp=sharing)
+- [Demo Video](https://youtu.be/TQ8fPB1fh5Q)
 - [Figma Designs](https://www.figma.com/file/JRvXBmStKHIcLepytgANr9/Smart-Advertising?node-id=0%3A1)
 
 ## 🤖Tech-Stack
@@ -191,3 +194,58 @@ Based on your Android Development environment, proceed for a Gradle Build to deb
 ## 👨‍🏫Acknowledgement
 - Mentor - [Naveen Luhach](https://www.linkedin.com/in/naveenluhach/)
 - [Microsoft Engage 2022](https://acehacker.com/microsoft/engage2022/)
+
+## 📱Screenshots
+<p align="middle">
+   <br>
+<table>
+  <tr>
+    <td><b>REGISTER </b></td>
+     <td><b>HOMEPAGE </b></td>
+  </tr>
+  <tr>
+    <td> <img src="screenshots/REGISTER.jpeg" width="250" /></td>
+    <td><img src="screenshots/HOMEPAGE1.jpeg" width="250" /></td>
+  </tr>
+ </table>
+ <br>
+
+<br>
+<b></b>
+ <br>
+    <br>
+<table>
+  <tr>
+    <td><b> BARCHART</b></td>
+     <td><b>PIECHART </b></td>
+  </tr>
+  <tr>
+    <td> <img src="screenshots/BARCHART.jpeg" width="250" /></td>
+    <td><img src="screenshots/PIECHART.jpeg" width="250" /></td>
+  </tr>
+ </table>
+ <br>
+
+<br>
+<b></b>
+ <br>
+    <br>
+<table>
+  <tr>
+    <td><b> UPLOADVIDEO</b></td>
+     <td><b>DISPLAYVIDEO </b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/UPLOADVIDEO.jpeg" width="250" /></td>
+    <td><img src="screenshots/DISPLAYVIDEO.jpeg" width="250" /></td>
+  </tr>
+ </table>
+ <br>
+
+<br>
+<b></b>
+ <br>
+ 
+   
+
+
