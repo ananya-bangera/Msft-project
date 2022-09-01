@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "828853156333",
+    "project_id": "advertaise-6d106",
+    "storage_bucket": "advertaise-6d106.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828853156333:android:568d258f1f8f17e5cacfe4",
+        "android_client_info": {
+          "package_name": "com.ananya.advertaise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828853156333-bdcio2c31rcvvll3050evpcistn6m379.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFls6UQ2nYPMEVbB3zyZ6hSlRwufoFqrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828853156333-bdcio2c31rcvvll3050evpcistn6m379.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "828853156333-r65kjh5doqcetk2s310838ocsr9oc3gt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.advertaise"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
