@@ -22,3 +22,11 @@ class obj {
 
   obj({required this.name, required this.img});
 }
+
+//Colors
+class myColors {
+  static const calculatorScreen = const Color(0xff222433);
+  static const calculatorButton = const Color(0xff2C3144);
+  static const calculatorFunctionButton = const Color(0xff35364A);
+  static const calculatorYellow = const Color(0xffFEBc06);
+}

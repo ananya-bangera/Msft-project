@@ -1,3 +1,4 @@
+import 'package:advertaise/pages/leaderboard/scoreboard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:advertaise/model/themes.dart';
@@ -176,10 +177,18 @@ class _HomeState extends State<Home> {
                               MaterialPageRoute(
                                   builder: (context) => DataAnalysis()),
                             );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LeaderBoardScreen()),
+                            );
                           }
                         },
                         backgroundColor: Colors.orange,
-                        child: Icon(Icons.analytics),
+                        child: (widget.value == "Company")
+                            ? Icon(Icons.analytics)
+                            : Icon(Icons.leaderboard_outlined),
                         elevation: 0.1,
                       ),
                     ),

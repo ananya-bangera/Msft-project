@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:advertaise/model/user_model.dart';
 import 'package:advertaise/home.dart';
+import '../../model/video_details.dart';
 import 'auth.dart';
 
 class RegisterationScreen extends StatefulWidget {
@@ -325,12 +326,23 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
     userModel.firstName = firstNameEditingController.text;
     userModel.surName = surNameEditingController.text;
     userModel.userType = value;
-    user.updateDisplayName(userModel.firstName);
+    user.updateDisplayName(userModel.firstName.toString());
+
     //Inserting data into Firebase Firestore
     await firebaseFirestore
         .collection(value!)
         .doc(user.uid)
         .set(userModel.toMap());
+
+    VideoDataModel videoDataModel = VideoDataModel(
+        score: 0.0,
+        lastUpdated: DateTime.now(),
+        userName: userModel.firstName.toString());
+
+    await firebaseFirestore
+        .collection("Watched")
+        .doc(userModel.email.toString())
+        .set(videoDataModel.toMap());
 
     Fluttertoast.showToast(msg: "Account created successfully :)");
     Navigator.pushAndRemoveUntil(

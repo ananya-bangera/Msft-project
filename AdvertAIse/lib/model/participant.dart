@@ -1,18 +1,16 @@
-import 'package:firebase_storage/firebase_storage.dart';
-
-class VideoDataModel {
-  late final double score;
+class ParticipantModel {
+  final double score;
   final DateTime lastUpdated;
   final String? userName;
 
-  VideoDataModel(
+  ParticipantModel(
       {required this.score,
       required this.lastUpdated,
       this.userName = 'Anonymous'});
 
   //Fetching data from server
-  factory VideoDataModel.fromMap(map) {
-    return VideoDataModel(
+  factory ParticipantModel.fromMap(map) {
+    return ParticipantModel(
         score: map['score'],
         lastUpdated: map['lastUpdated'],
         userName: map['userName']);

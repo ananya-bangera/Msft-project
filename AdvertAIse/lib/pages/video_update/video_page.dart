@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:advertaise/model/emotion_list.dart';
 import 'package:advertaise/model/firebase_file.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
 import 'package:tflite/tflite.dart';
@@ -161,10 +162,7 @@ class VideoPageState extends State<VideoPage> {
     double watchedVideo = emotionList.length * 1.0;
     User? user = _auth.currentUser;
     String? userName = user?.displayName;
-    VideoDataModel videoDataModel = VideoDataModel(
-        score: (watchedVideo * 1.0) / sizeOfVideo,
-        lastUpdated: DateTime.now(),
-        userName: userName);
+    double score = (watchedVideo * 1.0) / sizeOfVideo;
     EmotionListModel emotionListModel = EmotionListModel();
     emotionListModel.eml = emotionList;
 
@@ -177,9 +175,26 @@ class VideoPageState extends State<VideoPage> {
         .set(emotionListModel.toMap());
     await firebaseFirestore
         .collection("Watched")
-        .doc(user?.email)
-        .collection(widget.fileName.toString())
-        .doc("details")
+        .doc("${user?.email.toString()}")
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        // print('Document data: ${documentSnapshot['score']}');
+        // videoDataModel.score += documentSnapshot['score'];
+
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
+        // Fluttertoast.showToast(msg: score.toString());
+        score += double.parse(data["score"].toString());
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+    VideoDataModel videoDataModel = VideoDataModel(
+        score: score, lastUpdated: DateTime.now(), userName: userName);
+    await firebaseFirestore
+        .collection("Watched")
+        .doc("${user?.email.toString()}")
         .set(videoDataModel.toMap());
   }
 }
