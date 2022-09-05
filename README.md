@@ -105,10 +105,10 @@ Develop a browser-based application or a native mobile application to demonstrat
 - [x] Model Integrated with Flutter using the `tflite` package   
 - [x] Timestamp-based records of emotions stored in Firebase Database
 - [x] Analytics Graphs(Bar Charts and Pie Charts) for uploaded videos
+- [x] Add a gamified environment for the users
+- [x] Introduce ranking system and leaderboards
 
 ## 🔮Future Scope
-- Add a gamified environment for the users
-- Introduce ranking system and leaderboards
 - Allow users to redeem and apply coupons based on their scores
 - Allow companies to run special campaigns
 
