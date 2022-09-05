@@ -237,7 +237,7 @@ Based on your Android Development environment, proceed for a Gradle Build to deb
   </tr>
   <tr>
     <td><img src="screenshots/UPLOADVIDEO.jpeg" width="250" /></td>
-    <td><img src="screenshots/DISPLAYVIDEO.jpeg" width="250" /></td>
+    <td><img src="screenshots/DISPLAY_VIDEO.jpeg" width="250" /></td>
   </tr>
  </table>
  <br>
