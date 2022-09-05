@@ -247,5 +247,21 @@ Based on your Android Development environment, proceed for a Gradle Build to deb
  <br>
  
    
+    <br>
+<table>
+  <tr>
+    <td><b> LEADERBOARD</b></td>
+     <td><b> PROFILE </b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/LEADERBOARD.jpeg" width="250" /></td>
+    <td><img src="screenshots/PROFILE.jpeg" width="250" /></td>
+  </tr>
+ </table>
+ <br>
 
+<br>
+<b></b>
+ <br>
+ 
 
