@@ -246,8 +246,7 @@ Based on your Android Development environment, proceed for a Gradle Build to deb
 <b></b>
  <br>
  
-   
-    <br>
+
 <table>
   <tr>
     <td><b> LEADERBOARD</b></td>
