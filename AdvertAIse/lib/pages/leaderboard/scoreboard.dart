@@ -61,33 +61,17 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                           color: myColors.calculatorButton),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Region',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16.0),
-                            ),
-                            Text(
-                              'National',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16.0),
-                            ),
-                            Text(
-                              'Global',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16.0),
-                            ),
-                          ],
+                        child: Center(
+                          child: Text(
+                            'Leaderboard',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16.0),
+                          ),
                         ),
                       ),
+                      // ),
                     ),
                   ),
                 ),
@@ -188,11 +172,10 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     );
   }
 
+  //To get the rank-wise names list
   getDetails() async {
-    // FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     CollectionReference collectionReference = await _fireStore;
     QuerySnapshot querySnapshot = await collectionReference.get();
-    // print(querySnapshot.docs.length);
     for (final doc in querySnapshot.docs) {
       dataList.add(doc.id.toString());
     }

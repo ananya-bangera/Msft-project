@@ -162,39 +162,66 @@ class VideoPageState extends State<VideoPage> {
     double watchedVideo = emotionList.length * 1.0;
     User? user = _auth.currentUser;
     String? userName = user?.displayName;
-    double score = (watchedVideo * 1.0) / sizeOfVideo;
+
+    double score =
+        (sizeOfVideo != 0) ? ((watchedVideo * 1.0) / sizeOfVideo) : 0;
     EmotionListModel emotionListModel = EmotionListModel();
     emotionListModel.eml = emotionList;
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    //Storing emotions data
     await firebaseFirestore
         .collection("Emotions")
         .doc(widget.fileName.toString())
         .collection("collection")
         .doc(user?.email)
         .set(emotionListModel.toMap());
+
+    //Updating scores
     await firebaseFirestore
         .collection("Watched")
         .doc("${user?.email.toString()}")
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
-        // print('Document data: ${documentSnapshot['score']}');
-        // videoDataModel.score += documentSnapshot['score'];
-
         Map<String, dynamic> data =
             documentSnapshot.data() as Map<String, dynamic>;
-        // Fluttertoast.showToast(msg: score.toString());
+
         score += double.parse(data["score"].toString());
       } else {
         print('Document does not exist on the database');
       }
     });
+
+    //Storing the updated scores
     VideoDataModel videoDataModel = VideoDataModel(
         score: score, lastUpdated: DateTime.now(), userName: userName);
     await firebaseFirestore
         .collection("Watched")
         .doc("${user?.email.toString()}")
         .set(videoDataModel.toMap());
+    List<String> songsList = [];
+
+    //Storing watched videos list
+    await firebaseFirestore
+        .collection("Viewed")
+        .doc("${user?.email.toString()}")
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
+        for (var data_song in data['songs']) {
+          songsList.add(data_song);
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+    songsList.add(widget.fileName.toString());
+    await firebaseFirestore
+        .collection("Viewed")
+        .doc("${user?.email.toString()}")
+        .set({'songs': songsList});
   }
 }

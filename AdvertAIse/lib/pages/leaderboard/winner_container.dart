@@ -111,8 +111,6 @@ class WinnerContainer extends StatelessWidget {
               width: 100.0,
               child: Center(
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       (winnerName == null) ? "Anonymous" : winnerName,
