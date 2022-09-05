@@ -107,10 +107,12 @@ Develop a browser-based application or a native mobile application to demonstrat
 - [x] Analytics Graphs(Bar Charts and Pie Charts) for uploaded videos
 - [x] Add a gamified environment for the users
 - [x] Introduce ranking system and leaderboards
+- [x] Display Watched Videos History in the Profile section
 
 ## 🔮Future Scope
 - Allow users to redeem and apply coupons based on their scores
 - Allow companies to run special campaigns
+- Add a subscription-based model for companies to use the platform
 
 ## 🚧Major Roadblocks
 1. Dart Version Conflict with Firebase Dependencies
